@@ -14,6 +14,31 @@ hero:
       href: /research/
     - label: Meet the team
       href: /people/
+labels:
+  projects: Research projects
+  allProjects: All projects
+  news: Latest news
+  allNews: All news
+  events: Events
+  allEvents: All events
+  publications: Latest publications
+  allPublications: All publications
+  team: Our team
+  teamAction: Meet the team
+  funders: Funders
+team:
+  image: ./images/team-photo.jpg
+  imageAlt: Group selfie of GIST Lab members at a game venue
+  text: GIST Lab is home to a diverse group of spatial data enthusiasts working on a variety of topics ranging from sustainable cities and mobility to water resource management and agriculture.
+funders:
+  - name: Research Council of Finland
+    logo: ./images/funder-research-council-of-finland.jpeg
+  - name: CHIST-ERA
+    logo: ./images/funder-chist-era.png
+  - name: European Digital Innovation Hubs Network, co-funded by the European Union
+    logo: ./images/funder-edih-lih.png
+  - name: Nordic Council of Ministers
+    logo: ./images/funder-nordic-council.png
 ---
 
 ## About the research group

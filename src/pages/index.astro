@@ -1,13 +1,28 @@
 ---
-import { Picture } from "astro:assets";
+import { Image, Picture } from "astro:assets";
 import { getEntry, render } from "astro:content";
 import Base from "../layouts/Base.astro";
+import EventItem from "../components/EventItem.astro";
+import NewsCard from "../components/NewsCard.astro";
+import PublicationItem from "../components/PublicationItem.astro";
+import { getEvents } from "../lib/events";
+import { pageLabel } from "../lib/labels";
+import { getNews } from "../lib/news";
 import { withBase } from "../lib/paths";
+import { getProjects, projectHref, projectName } from "../lib/projects";
+import { getPublications } from "../lib/publications";
 
 const home = await getEntry("home", "home");
 if (!home) throw new Error("content/home.md is missing");
-const { hero } = home.data;
+const { hero, team, funders } = home.data;
+const label = (key: string) => pageLabel(home, key);
 const { Content } = await render(home);
+
+const projects = (await getProjects()).filter((project) => project.data.status === "ongoing" && project.data.page);
+const news = (await getNews()).slice(0, 3);
+const { upcoming, past } = await getEvents();
+const events = upcoming.length > 0 ? upcoming.slice(0, 3) : past.filter((event) => event.data.date).slice(0, 2);
+const publications = (await getPublications()).slice(0, 5);
 ---
 
 <Base title={home.data.title} description={home.data.description} overlayHeader>
@@ -44,4 +59,95 @@ const { Content } = await render(home);
       <Content />
     </div>
   </section>
+
+  {projects.length > 0 && (
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{label("projects")}</h2>
+          <a href={withBase("/research/")}>{label("allProjects")} →</a>
+        </div>
+        <ul class="project-chips">
+          {projects.map((project) => (
+            <li>
+              <a class="project-chip" href={withBase(projectHref(project)!)}>
+                <span class="project-chip__logo" aria-hidden="true">
+                  {project.data.logo ? <Image src={project.data.logo} alt="" widths={[96, 192]} sizes="3rem" /> : projectName(project).slice(0, 2)}
+                </span>
+                <span>
+                  <strong>{projectName(project)}</strong>
+                  {project.data.years && <span class="project-chip__years">{project.data.years}</span>}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {news.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{label("news")}</h2>
+          <a href={withBase("/news/")}>{label("allNews")} →</a>
+        </div>
+        <div class="news-grid">{news.map((post) => <NewsCard post={post} />)}</div>
+      </div>
+    </section>
+  )}
+
+  {events.length > 0 && (
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{label("events")}</h2>
+          <a href={withBase("/events/")}>{label("allEvents")} →</a>
+        </div>
+        <div class="event-list">{events.map((event) => <EventItem event={event} />)}</div>
+      </div>
+    </section>
+  )}
+
+  {team && (
+    <section class="section section--alt">
+      <div class="container team-band">
+        <Image class="team-band__photo" src={team.image} alt={team.imageAlt} widths={[640, 1080, 1600]} sizes="(min-width: 56rem) 34rem, 100vw" />
+        <div>
+          <h2>{label("team")}</h2>
+          <p class="team-band__text">{team.text}</p>
+          <a class="button button--primary" href={withBase("/people/")}>{label("teamAction")}</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {publications.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{label("publications")}</h2>
+          <a href={withBase("/publications/")}>{label("allPublications")} →</a>
+        </div>
+        <ol class="publication-list">
+          {publications.map((publication) => <PublicationItem publication={publication} />)}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  {funders.length > 0 && (
+    <section class="section section--tight funders">
+      <div class="container">
+        <h2 class="funders__title">{label("funders")}</h2>
+        <ul class="funders__list">
+          {funders.map((funder) => {
+            const logo = <Image src={funder.logo} alt={funder.name} widths={[160, 320]} sizes="10rem" />;
+            return <li>{funder.href ? <a href={funder.href}>{logo}</a> : logo}</li>;
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
 </Base>

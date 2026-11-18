@@ -42,7 +42,13 @@ const home = defineCollection({
         imagePosition: z.string().default("50% 50%"),
         credit: z.string().default(""),
         actions: z.array(linkSchema).default([])
-      })
+      }),
+      labels: z.record(z.string(), z.string().min(1)).default({}),
+      team: z
+        .object({ image: image(), imageAlt: altText, text: z.string().min(1) })
+        .optional(),
+      // Logos in the funder strip; `name` is also the logo's alt text.
+      funders: z.array(z.object({ name: altText, logo: image(), href: z.url({ protocol: /^https?$/ }).optional() })).default([])
     })
 });
 

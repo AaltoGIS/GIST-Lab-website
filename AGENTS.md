@@ -22,7 +22,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | Path | Contents |
 | --- | --- |
 | `content/site.yml` | Lab name, main menu (with submenus), footer address and links. |
-| `content/home.md` | Front page: banner text, image and buttons (front matter), about text (body). |
+| `content/home.md` | Front page: banner, section headings (`labels`), team photo and text, funder logos (front matter); about text (body). The latest news, events, publications and ongoing projects are filled in from their folders. |
 | `content/images/` | Images used by the files in `content/`. |
 | `content/pages/` | Intro texts of list pages (`people.md`, `news.md`, ...) and stand-alone pages (`teaching.md`, `software.md`, `data.md`); `404.md` is the page-not-found text. `labels` in the front matter holds the page's section headings. |
 | `content/people/` | One file per lab member; photos in `content/people/images/`. |
