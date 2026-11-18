@@ -22,7 +22,8 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | Path | Contents |
 | --- | --- |
 | `content/site.yml` | Lab name, main menu (with submenus), footer address and links. |
-| `content/home.md` | Front page text. |
+| `content/home.md` | Front page: banner text, image and buttons (front matter), about text (body). |
+| `content/images/` | Images used by the files in `content/`. |
 | `content/pages/` | Stand-alone pages; `404.md` is the page-not-found text. |
 | `public/` | Files served unchanged, e.g. the logo mark `gist-mark.svg`. |
 | `src/content.config.ts` | Schemas for the Markdown files (required fields, types). |
@@ -39,6 +40,10 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 - Internal links start with `/`, e.g. `[our team](/people/)`. The build adds
   the base path (`/GIST-Lab-website` until the domain switch); never write the
   base path yourself.
+- Images: save the file in `content/images/` and reference it relative to the
+  Markdown file, e.g. `./images/name.jpg` from `content/home.md`. The build
+  resizes it and writes AVIF/WebP versions, so full-size photos are fine.
+  Every image needs alt text.
 - The menu is edited in `content/site.yml`: add an item with `label` and
   `href`; a `children` list turns it into a submenu.
 - Keep text from the lab as written; fix only clear typos.

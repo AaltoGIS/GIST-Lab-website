@@ -10,10 +10,12 @@ import { withBase } from "../lib/paths";
 interface Props {
   title: string;
   description?: string;
+  /** Header drawn over the first section (a full-width banner image). */
+  overlayHeader?: boolean;
   noindex?: boolean;
 }
 
-const { title, description = site.description, noindex = false } = Astro.props;
+const { title, description = site.description, overlayHeader = false, noindex = false } = Astro.props;
 const fullTitle = title === site.name ? `${site.name} – ${site.fullName}` : `${title} | ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
@@ -40,7 +42,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <SiteHeader />
+    <SiteHeader overlay={overlayHeader} />
     <main id="main">
       <slot />
     </main>

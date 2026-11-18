@@ -2,12 +2,18 @@
 import { site } from "../lib/site";
 import { pagePath, withBase } from "../lib/paths";
 
+interface Props {
+  /** Transparent header drawn over a full-width banner image until the page scrolls. */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
 const current = pagePath(Astro.url.pathname);
 const isCurrent = (href: string) => current === href;
 const inSection = (href: string) => href !== "/" && current.startsWith(href);
 ---
 
-<header class="site-header" data-site-header>
+<header class:list={["site-header", { "site-header--overlay": overlay }]} data-site-header>
   <div class="container site-header__inner">
     <a class="brand" href={withBase("/")}>
       <img class="brand__mark" src={withBase("/gist-mark.svg")} alt="" width="45" height="30" />
@@ -93,4 +99,10 @@ const inSection = (href: string) => href !== "/" && current.startsWith(href);
       // Storage unavailable (private mode): the choice lasts for this page only.
     }
   });
+
+  if (header?.classList.contains("site-header--overlay")) {
+    const markScrolled = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+    markScrolled();
+    window.addEventListener("scroll", markScrolled, { passive: true });
+  }
 </script>
