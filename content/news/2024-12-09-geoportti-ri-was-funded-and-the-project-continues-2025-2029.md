@@ -2,6 +2,8 @@
 title: Geoportti RI was funded and the project continues (2025-2029)
 date: 2024-12-09
 author: Henrikki Tenkanen
+projects:
+  - geoportti-ri
 image: ./images/2024-12-09-Geoportti_services.png
 imageAlt: "Geoportti RI service categories: geodata and metadata, storing and sharing, emerging tech labs and tools, HPC geoprocessing and geoanalytics, virtualization, skills development and innovation, community"
 ---

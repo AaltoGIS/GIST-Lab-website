@@ -9,6 +9,7 @@ labels:
   visiting: Visiting researchers
   former: Former lab members
   education: Education
+  projects: Projects
   email: Email
 ---
 

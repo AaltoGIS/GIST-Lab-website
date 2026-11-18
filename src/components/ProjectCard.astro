@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import { withBase } from "../lib/paths";
+import { projectHref, projectName, projectSummary, type Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const href = projectHref(project);
+const name = projectName(project);
+---
+
+<article class="project-card">
+  <div class="project-card__logo" aria-hidden="true">
+    {data.logo ? (
+      <Image src={data.logo} alt="" widths={[160, 320]} sizes="5rem" />
+    ) : (
+      <span>{name.slice(0, 2)}</span>
+    )}
+  </div>
+  <div class="project-card__body">
+    <h3 class="project-card__title">{href ? <a href={withBase(href)}>{name}</a> : name}</h3>
+    {name !== data.title && <p class="project-card__fullname">{data.title}</p>}
+    <p class="project-card__meta">{[data.years, data.funders.join(", ")].filter(Boolean).join(" · ")}</p>
+    {data.page && <p class="project-card__summary">{projectSummary(project)}</p>}
+  </div>
+</article>

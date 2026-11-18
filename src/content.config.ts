@@ -1,4 +1,4 @@
-import { defineCollection } from "astro:content";
+import { defineCollection, reference } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { linkSchema } from "./lib/schemas";
@@ -119,7 +119,7 @@ const news = defineCollection({
         image: image().optional(),
         imageAlt: altText.optional(),
         summary: z.string().min(1).optional(),
-        projects: z.array(z.string().min(1)).default([])
+        projects: z.array(reference("projects")).default([])
       })
       .refine(hasAltText, altTextIssue)
 });
@@ -145,4 +145,32 @@ const events = defineCollection({
       })
 });
 
-export const collections = { home, pages, people, news, events };
+// Research projects: content/projects/mapico.md → /research/mapico/. With `page: false` the
+// project is only listed on the Research page.
+const projects = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/projects" }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string().min(1),
+        shortTitle: z.string().min(1).optional(),
+        years: yearText.optional(),
+        status: z.enum(["ongoing", "past"]),
+        order: z.number().int().default(100),
+        funders: z.array(z.string().min(1)).default([]),
+        pi: z.string().min(1).optional(),
+        coordinator: z.string().min(1).optional(),
+        website: z.url({ protocol: /^https?$/ }).optional(),
+        logo: image().optional(),
+        logoAlt: altText.optional(),
+        summary: z.string().min(1).optional(),
+        team: z.array(reference("people")).default([]),
+        page: z.boolean().default(true)
+      })
+      .refine((project) => !project.logo || Boolean(project.logoAlt), {
+        message: "`logoAlt` is required when `logo` is set",
+        path: ["logoAlt"]
+      })
+});
+
+export const collections = { home, pages, people, news, events, projects };

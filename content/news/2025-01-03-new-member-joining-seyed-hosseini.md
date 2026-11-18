@@ -2,6 +2,8 @@
 title: "New member joining! Seyed Hosseini"
 date: 2025-01-03
 author: Henrikki Tenkanen
+projects:
+  - digital-waters
 image: ./images/2025-01-03-Seyed_Hosseini.png
 imageAlt: "Portrait of Seyed Hossein Hosseini"
 ---

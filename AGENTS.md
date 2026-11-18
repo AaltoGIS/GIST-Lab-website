@@ -28,6 +28,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `content/people/` | One file per lab member; photos in `content/people/images/`. |
 | `content/news/` | One file per news post; images in `content/news/images/`. |
 | `content/events/` | One file per event; images in `content/events/images/`. |
+| `content/projects/` | One file per research project; logos and figures in `content/projects/images/`. |
 | `public/` | Files served unchanged, e.g. the logo mark `gist-mark.svg`. |
 | `src/content.config.ts` | Schemas for the Markdown files (required fields, types). |
 | `src/lib/site.ts` | Schema for `content/site.yml`. |
@@ -106,7 +107,7 @@ author: Jane Doe                  # optional
 image: ./images/2026-11-18-figure.jpg   # optional, shown on the card and the post
 imageAlt: Map of commuting emissions in Helsinki   # required with `image`: describe what it shows
 summary: One or two sentences for the card.        # optional
-projects: [mapico]                # optional, research project ids
+projects: [mapico]                # optional, project file names; checked at build
 ---
 ```
 
@@ -128,6 +129,37 @@ Dates are written as `YYYY-MM-DD`; `npm test` checks that each is a real
 calendar day. Events whose (end) date is today or later are listed as upcoming. The
 decision is made when the site is built; the deploy workflow also rebuilds
 the site every Monday.
+
+## Research projects
+
+A project is `content/projects/<id>.md`; its page is `/research/<id>/`. The
+body is the project description (Markdown): figures, and funders and
+partners as logo images or a table under their own headings.
+The Research page lists projects by `status`; a project page shows the facts
+from the front matter, links to its lab members and lists news posts whose
+`projects` include the project id. Each person's profile lists their
+projects.
+
+```yaml
+---
+title: "MAPICO: Mapping commute-related carbon emissions"
+shortTitle: MAPICO            # optional, used on cards and in lists
+years: 2023–2027              # optional
+status: ongoing               # ongoing | past
+order: 1                      # optional, position on the Research page
+funders: [Research Council of Finland]
+pi: Henrikki Tenkanen         # optional
+coordinator: Jane Doe, University X   # optional
+website: https://example.org/ # optional
+logo: ./images/mapico-logo.png        # optional
+logoAlt: MAPICO project logo  # required with `logo`
+team: [henrikki-tenkanen, subhrasankha-dey]   # people file names; checked at build
+page: false                   # optional; list the project without a page
+---
+```
+
+To add a project to the Research submenu, add it to `menu` in
+`content/site.yml`.
 
 ## Design rules
 

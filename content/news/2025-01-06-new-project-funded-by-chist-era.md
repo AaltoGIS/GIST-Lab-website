@@ -2,6 +2,8 @@
 title: New project funded by CHIST-ERA (2025-2028)
 date: 2025-01-06
 author: Henrikki Tenkanen
+projects:
+  - geo-r2llm
 image: ./images/2025-01-06-GeoAI_ad.webp
 imageAlt: "Illustration of a digital globe surrounded by network lines and circuitry"
 ---
