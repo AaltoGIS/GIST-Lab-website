@@ -1,4 +1,7 @@
 ---
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import { getEntry } from "astro:content";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/space-grotesk";
 import "../styles/global.css";
@@ -12,12 +15,19 @@ interface Props {
   description?: string;
   /** Header drawn over the first section (a full-width banner image). */
   overlayHeader?: boolean;
+  /** Preview image for link previews (Open Graph); the front-page banner when omitted. */
+  image?: ImageMetadata;
   noindex?: boolean;
 }
 
-const { title, description = site.description, overlayHeader = false, noindex = false } = Astro.props;
+const { title, description = site.description, overlayHeader = false, image, noindex = false } = Astro.props;
 const fullTitle = title === site.name ? `${site.name} – ${site.fullName}` : `${title} | ${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+// SVG logos cannot be turned into a preview photo; the banner is used instead.
+const previewSource = image && image.format !== "svg" ? image : (await getEntry("home", "home"))?.data.hero.image;
+const preview = previewSource ? await getImage({ src: previewSource, width: 1200, format: "jpg" }) : undefined;
+const previewUrl = preview ? new URL(preview.src, Astro.site).toString() : undefined;
+const newsTitle = (await getEntry("pages", "news"))?.data.title;
 ---
 
 <!doctype html>
@@ -27,7 +37,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={site.name} />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        {previewUrl && <meta property="og:image" content={previewUrl} />}
+        <meta name="twitter:card" content={previewUrl ? "summary_large_image" : "summary"} />
+      </>
+    )}
+    <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
+    {newsTitle && <link rel="alternate" type="application/rss+xml" title={`${site.name} – ${newsTitle}`} href={withBase("/news/rss.xml")} />}
     <link rel="icon" href={withBase("/gist-mark.svg")} type="image/svg+xml" />
     <script is:inline>
       let saved = null;
@@ -41,7 +66,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{site.labels.skipToContent}</a>
     <SiteHeader overlay={overlayHeader} />
     <main id="main">
       <slot />

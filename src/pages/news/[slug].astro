@@ -28,7 +28,7 @@ if (!page) throw new Error("content/pages/news.md is missing");
 const { Content } = await render(post);
 ---
 
-<Base title={data.title} description={postSummary(post)}>
+<Base title={data.title} description={postSummary(post)} image={data.image}>
   <article class="section post">
     <div class="container post__inner">
       <header class="post__header">

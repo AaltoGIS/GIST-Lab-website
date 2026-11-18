@@ -24,7 +24,7 @@ if (!page) throw new Error("content/pages/events.md is missing");
 const { Content } = await render(event);
 ---
 
-<Base title={data.title} description={excerpt(event.body)}>
+<Base title={data.title} description={excerpt(event.body)} image={data.image}>
   <article class="section post">
     <div class="container post__inner">
       <header class="post__header">

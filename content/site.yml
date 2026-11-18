@@ -2,7 +2,7 @@
 # Links starting with "/" point to pages of this site.
 
 name: GIST Lab
-fullName: GIScience for Sustainability Transformations Lab
+fullName: GIScience for Sustainability Transformations
 description: >-
   GIScience for Sustainability Transformations (GIST) Lab advances research,
   teaching and open-source scientific software related to sustainable
@@ -44,6 +44,13 @@ menu:
     href: /software/
   - label: Data
     href: /data/
+
+# Short interface texts: skip link, menu button, theme switch, submenu button.
+labels:
+  skipToContent: Skip to content
+  menu: Menu
+  themeToggle: Switch between light and dark theme
+  submenu: pages
 
 footerLinks:
   - label: GitHub

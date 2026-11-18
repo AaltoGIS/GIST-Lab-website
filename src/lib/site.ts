@@ -15,7 +15,13 @@ const siteSchema = z.object({
   address: z.string().min(1),
   copyright: z.string().min(1),
   menu: z.array(menuItem).min(1),
-  footerLinks: z.array(linkSchema).default([])
+  footerLinks: z.array(linkSchema).default([]),
+  labels: z.object({
+    skipToContent: z.string().min(1),
+    menu: z.string().min(1),
+    themeToggle: z.string().min(1),
+    submenu: z.string().min(1)
+  })
 });
 
 /** Parses content/site.yml and checks it against the schema; throws with the invalid fields listed. */

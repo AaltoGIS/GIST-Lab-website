@@ -13,15 +13,17 @@ content changes never need edits under `src/`.
 | `npm test` | Unit tests in `tests/`. |
 | `npm run check` | Type check and content-schema check. |
 | `npm run build` | Build into `dist/`. Stops with the file and field named when content is invalid. |
+| `npm run check-links` | After a build: checks that every internal link, image, preview address and feed/sitemap entry in `dist/` exists. |
 | `npm run preview` | Serve the built site (Astro runs it in the background; `npx astro preview stop` ends it). |
 
-Run `npm test`, `npm run check` and `npm run build` after every change.
+Run `npm test`, `npm run check`, `npm run build` and `npm run check-links`
+after every change.
 
 ## Where things are
 
 | Path | Contents |
 | --- | --- |
-| `content/site.yml` | Lab name, main menu (with submenus), footer address and links. |
+| `content/site.yml` | Lab name, main menu (with submenus), footer address and links, short interface texts (`labels`). |
 | `content/home.md` | Front page: banner, section headings (`labels`), team photo and text, funder logos (front matter); about text (body). The latest news, events, publications and ongoing projects are filled in from their folders. |
 | `content/images/` | Images used by the files in `content/`. |
 | `content/pages/` | Intro texts of list pages (`people.md`, `news.md`, ...) and stand-alone pages (`teaching.md`, `software.md`, `data.md`); `404.md` is the page-not-found text. `labels` in the front matter holds the page's section headings. |
@@ -37,7 +39,9 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `tests/` | Unit tests (`node --test`). |
 | `src/layouts/`, `src/components/`, `src/pages/` | Page layout, header and footer, routes. |
 | `src/styles/global.css` | All styling: colour tokens, light and dark themes. |
-| `.github/workflows/` | `validate.yml` builds every pull request; `deploy.yml` publishes `main` and rebuilds weekly. |
+| `content/redirects.yml` | Old WordPress addresses and the pages they now lead to. |
+| `site.config.mjs` | Address of the published site (`site`, `base`). |
+| `.github/workflows/` | `validate.yml` builds and link-checks every pull request; `deploy.yml` publishes `main` and rebuilds weekly. |
 
 ## Editing content
 
@@ -222,5 +226,7 @@ appear in the menu.
 
 The site is served at https://aaltogis.github.io/GIST-Lab-website/ until
 gistlab.science points to GitHub Pages. To switch, set `site` to
-`https://gistlab.science` and `base` to `/` in `astro.config.mjs`, and add
-`public/CNAME` containing `gistlab.science`.
+`https://gistlab.science` and `base` to `/` in `site.config.mjs`, and add
+`public/CNAME` containing `gistlab.science`. The old WordPress addresses
+listed in `content/redirects.yml` then forward to the new pages; add a line
+there when a page moves.
