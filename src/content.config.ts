@@ -6,6 +6,27 @@ import { linkSchema } from "./lib/schemas";
 // A year or year range; YAML reads `2023` as a number, so both forms are accepted.
 const yearText = z.union([z.number().int(), z.string().min(1)]).transform(String);
 
+// A calendar day written as 2026-10-19. Unquoted dates arrive already parsed by YAML
+// (which rolls 2026-02-30 over to 2 March; tests/content-dates.test.mjs catches that);
+// quoted ones are checked here.
+const calendarDate = z
+  .union([z.date(), z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "use the form YYYY-MM-DD")])
+  .transform((value, ctx) => {
+    const date = value instanceof Date ? value : new Date(`${value}T00:00:00Z`);
+    if (Number.isNaN(date.getTime()) || (typeof value === "string" && date.toISOString().slice(0, 10) !== value)) {
+      ctx.addIssue({ code: "custom", message: `${String(value)} is not a calendar date` });
+      return z.NEVER;
+    }
+    return date;
+  });
+
+// Alt text: surrounding spaces are removed, so a blank value counts as missing.
+const altText = z.string().trim().min(1);
+
+// Requires alt text whenever an image is set.
+const hasAltText = (entry: { image?: unknown; imageAlt?: string }) => !entry.image || Boolean(entry.imageAlt);
+const altTextIssue = { message: "`imageAlt` is required when `image` is set", path: ["imageAlt"] };
+
 const home = defineCollection({
   loader: glob({ pattern: "home.md", base: "./content" }),
   schema: ({ image }) =>
@@ -17,7 +38,7 @@ const home = defineCollection({
         subtitle: z.string().min(1),
         text: z.string().min(1),
         image: image(),
-        imageAlt: z.string().min(1),
+        imageAlt: altText,
         imagePosition: z.string().default("50% 50%"),
         credit: z.string().default(""),
         actions: z.array(linkSchema).default([])
@@ -50,7 +71,7 @@ const people = defineCollection({
         order: z.number().int().default(100),
         affiliation: z.string().min(1).optional(),
         photo: image().optional(),
-        photoAlt: z.string().min(1).optional(),
+        photoAlt: altText.optional(),
         photoPosition: z.string().default("50% 30%"),
         email: z
           .email()
@@ -82,4 +103,46 @@ const people = defineCollection({
       })
 });
 
-export const collections = { home, pages, people };
+// News posts: content/news/2026-10-19-some-title.md → /news/some-title/ (the date prefix only sorts the files).
+const news = defineCollection({
+  loader: glob({
+    pattern: "*.md",
+    base: "./content/news",
+    generateId: ({ entry }) => entry.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "")
+  }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string().min(1),
+        date: calendarDate,
+        author: z.string().min(1).optional(),
+        image: image().optional(),
+        imageAlt: altText.optional(),
+        summary: z.string().min(1).optional(),
+        projects: z.array(z.string().min(1)).default([])
+      })
+      .refine(hasAltText, altTextIssue)
+});
+
+// Events: content/events/some-event.md → /events/some-event/. Upcoming or past is decided at build time.
+const events = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/events" }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string().min(1),
+        date: calendarDate.optional(),
+        endDate: calendarDate.optional(),
+        location: z.string().min(1).optional(),
+        link: z.url({ protocol: /^https?$/ }).optional(),
+        image: image().optional(),
+        imageAlt: altText.optional()
+      })
+      .refine(hasAltText, altTextIssue)
+      .refine((event) => !event.endDate || (event.date && event.endDate >= event.date), {
+        message: "`endDate` needs a `date` on or before it",
+        path: ["endDate"]
+      })
+});
+
+export const collections = { home, pages, people, news, events };

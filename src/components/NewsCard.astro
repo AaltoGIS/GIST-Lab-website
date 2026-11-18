@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import { formatDate, isoDay } from "../lib/dates";
+import { withBase } from "../lib/paths";
+import { postSummary, type NewsPost } from "../lib/news";
+
+interface Props {
+  post: NewsPost;
+  /** Heading level of the card title; one below the section heading it sits under. */
+  headingLevel?: 2 | 3;
+}
+
+const { post, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3";
+const { data } = post;
+---
+
+<article class="news-card">
+  <a class="news-card__media" href={withBase(`/news/${post.id}/`)} tabindex="-1" aria-hidden="true">
+    {data.image ? (
+      <Image src={data.image} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 100vw" />
+    ) : (
+      <img class="news-card__placeholder" src={withBase("/gist-mark.svg")} alt="" width="150" height="100" />
+    )}
+  </a>
+  <div class="news-card__body">
+    <time class="news-card__date" datetime={isoDay(data.date)}>{formatDate(data.date)}</time>
+    <Heading class="news-card__title"><a href={withBase(`/news/${post.id}/`)}>{data.title}</a></Heading>
+    <p class="news-card__summary">{postSummary(post)}</p>
+  </div>
+</article>

@@ -26,6 +26,8 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `content/images/` | Images used by the files in `content/`. |
 | `content/pages/` | Stand-alone pages and the intro text of list pages (`people.md`); `404.md` is the page-not-found text. `labels` in the front matter holds the page's section headings. |
 | `content/people/` | One file per lab member; photos in `content/people/images/`. |
+| `content/news/` | One file per news post; images in `content/news/images/`. |
+| `content/events/` | One file per event; images in `content/events/images/`. |
 | `public/` | Files served unchanged, e.g. the logo mark `gist-mark.svg`. |
 | `src/content.config.ts` | Schemas for the Markdown files (required fields, types). |
 | `src/lib/site.ts` | Schema for `content/site.yml`. |
@@ -33,7 +35,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `tests/` | Unit tests (`node --test`). |
 | `src/layouts/`, `src/components/`, `src/pages/` | Page layout, header and footer, routes. |
 | `src/styles/global.css` | All styling: colour tokens, light and dark themes. |
-| `.github/workflows/` | `validate.yml` builds every pull request; `deploy.yml` publishes `main`. |
+| `.github/workflows/` | `validate.yml` builds every pull request; `deploy.yml` publishes `main` and rebuilds weekly. |
 
 ## Editing content
 
@@ -87,6 +89,45 @@ education:                  # optional, newest first
   optional one-line `note:` (e.g. their new position). Their profile page
   is removed and they move to the one-line list; `role`, `order`, `photo`
   and the biography are no longer shown and can be deleted.
+
+## News and events
+
+A news post is `content/news/<yyyy-mm-dd>-<short-title>.md`; its address is
+`/news/<short-title>/` (the date prefix only keeps the files in order). The
+body is the post in Markdown; cards show `summary`, or the first paragraph
+when there is none. The list, the post pages and the RSS feed
+(`/news/rss.xml`) are built from these files.
+
+```yaml
+---
+title: New paper on commuting emissions
+date: 2026-11-18
+author: Jane Doe                  # optional
+image: ./images/2026-11-18-figure.jpg   # optional, shown on the card and the post
+imageAlt: Map of commuting emissions in Helsinki   # required with `image`: describe what it shows
+summary: One or two sentences for the card.        # optional
+projects: [mapico]                # optional, research project ids
+---
+```
+
+An event is `content/events/<short-title>.md`:
+
+```yaml
+---
+title: Workshop on accessibility tools
+date: 2026-05-07          # optional; events without a date are listed as past
+endDate: 2026-05-09       # optional
+location: Otaniemi, Espoo # optional
+link: https://example.org/workshop   # optional, shown as a button
+image: ./images/2026-05-07-logo.png  # optional
+imageAlt: Workshop logo   # required with `image`
+---
+```
+
+Dates are written as `YYYY-MM-DD`; `npm test` checks that each is a real
+calendar day. Events whose (end) date is today or later are listed as upcoming. The
+decision is made when the site is built; the deploy workflow also rebuilds
+the site every Monday.
 
 ## Design rules
 

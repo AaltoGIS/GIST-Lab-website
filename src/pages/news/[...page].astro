@@ -1,0 +1,55 @@
+---
+import { getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import NewsCard from "../../components/NewsCard.astro";
+import { pageLabel } from "../../lib/labels";
+import { getNews, type NewsPost } from "../../lib/news";
+import { withBase } from "../../lib/paths";
+
+export async function getStaticPaths() {
+  const PAGE_SIZE = 12;
+  const posts = await getNews();
+  const pageCount = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+  return Array.from({ length: pageCount }, (_, index) => ({
+    params: { page: index === 0 ? undefined : `page/${index + 1}` },
+    props: { posts: posts.slice(index * PAGE_SIZE, (index + 1) * PAGE_SIZE), current: index + 1, pageCount }
+  }));
+}
+
+interface Props {
+  posts: NewsPost[];
+  current: number;
+  pageCount: number;
+}
+
+const { posts, current, pageCount } = Astro.props;
+const page = await getEntry("pages", "news");
+if (!page) throw new Error("content/pages/news.md is missing");
+const { Content } = await render(page);
+const pageHref = (number: number) => withBase(number === 1 ? "/news/" : `/news/page/${number}/`);
+---
+
+<Base title={current === 1 ? page.data.title : `${page.data.title} (${current}/${pageCount})`} description={page.data.description}>
+  <section class="section page-intro">
+    <div class="container">
+      <h1>{page.data.title}</h1>
+      <div class="prose prose--lead"><Content /></div>
+      <p><a href={withBase("/news/rss.xml")}>{pageLabel(page, "rss")}</a></p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="news-grid">
+        {posts.map((post) => <NewsCard post={post} headingLevel={2} />)}
+      </div>
+      {pageCount > 1 && (
+        <nav class="pager" aria-label={page.data.title}>
+          {current > 1 && <a class="button button--outline" href={pageHref(current - 1)}>← {pageLabel(page, "newer")}</a>}
+          <span class="pager__status">{current} / {pageCount}</span>
+          {current < pageCount && <a class="button button--outline" href={pageHref(current + 1)}>{pageLabel(page, "older")} →</a>}
+        </nav>
+      )}
+    </div>
+  </section>
+</Base>
