@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import { withBase } from "../lib/paths";
+import { displayName, type Person } from "../lib/people";
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+const { data } = person;
+const initials = data.name
+  .split(/\s+/)
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join("");
+---
+
+<a class="person-card" href={withBase(`/people/${person.id}/`)}>
+  <div class="person-card__photo">
+    {data.photo ? (
+      <Image src={data.photo} alt="" widths={[240, 480]} sizes="(min-width: 48rem) 15rem, 45vw" style={`object-position: ${data.photoPosition}`} />
+    ) : (
+      <span class="person-card__initials" aria-hidden="true">{initials}</span>
+    )}
+  </div>
+  <h3 class="person-card__name">{displayName(person)}</h3>
+  <p class="person-card__role">{data.role}</p>
+</a>

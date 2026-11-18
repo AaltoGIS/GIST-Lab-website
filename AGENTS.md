@@ -24,7 +24,8 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `content/site.yml` | Lab name, main menu (with submenus), footer address and links. |
 | `content/home.md` | Front page: banner text, image and buttons (front matter), about text (body). |
 | `content/images/` | Images used by the files in `content/`. |
-| `content/pages/` | Stand-alone pages; `404.md` is the page-not-found text. |
+| `content/pages/` | Stand-alone pages and the intro text of list pages (`people.md`); `404.md` is the page-not-found text. `labels` in the front matter holds the page's section headings. |
+| `content/people/` | One file per lab member; photos in `content/people/images/`. |
 | `public/` | Files served unchanged, e.g. the logo mark `gist-mark.svg`. |
 | `src/content.config.ts` | Schemas for the Markdown files (required fields, types). |
 | `src/lib/site.ts` | Schema for `content/site.yml`. |
@@ -47,6 +48,45 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 - The menu is edited in `content/site.yml`: add an item with `label` and
   `href`; a `children` list turns it into a submenu.
 - Keep text from the lab as written; fix only clear typos.
+
+## People
+
+Each person is one file, `content/people/<first-last>.md`; the file name is
+the profile address (`/people/<first-last>/`). Current members get a profile
+page and a card under their group's heading on the People page (headings
+are `labels` in `content/pages/people.md`); former members appear in the
+one-line list. The body of the file is the biography (Markdown).
+
+```yaml
+---
+name: Jane Doe
+prefix: Dr.                 # optional, shown before the name
+role: Postdoctoral researcher
+group: postdoc              # pi | staff | postdoc | doctoral | visiting | former
+order: 6                    # optional, position within the group
+affiliation: Department of X, Aalto University   # optional; default from site.yml
+photo: ./images/jane-doe.jpg                     # optional
+photoAlt: Jane Doe in front of a bookshelf       # optional; default "Photo of <name>"
+photoPosition: 50% 30%      # optional, which part of the photo stays in a crop
+email: jane.doe@aalto.fi    # optional, shown as a mail link
+emailText: firstname.lastname@aalto.fi   # optional, shown as plain text instead
+links:                      # optional
+  - label: Website
+    href: https://example.org/
+education:                  # optional, newest first
+  - year: 2022
+    degree: PhD
+    institution: University of Helsinki
+---
+```
+
+- Add a person: save the photo in `content/people/images/` and create the
+  file as above.
+- When someone leaves: set `group: former`, add `years: 2023–2026` (a year
+  or a range of four-digit years) and an
+  optional one-line `note:` (e.g. their new position). Their profile page
+  is removed and they move to the one-line list; `role`, `order`, `photo`
+  and the biography are no longer shown and can be deleted.
 
 ## Design rules
 

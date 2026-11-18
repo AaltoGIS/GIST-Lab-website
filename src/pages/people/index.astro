@@ -1,0 +1,53 @@
+---
+import { getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PersonCard from "../../components/PersonCard.astro";
+import { pageLabel } from "../../lib/labels";
+import { GROUPS, displayName, getPeople } from "../../lib/people";
+
+const page = await getEntry("pages", "people");
+if (!page) throw new Error("content/pages/people.md is missing");
+const { Content } = await render(page);
+const people = await getPeople();
+const groups = GROUPS.filter((group) => group !== "former")
+  .map((group) => ({ group, members: people.filter((person) => person.data.group === group) }))
+  .filter(({ members }) => members.length > 0);
+const former = people.filter((person) => person.data.group === "former");
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <section class="section page-intro">
+    <div class="container">
+      <h1>{page.data.title}</h1>
+      <div class="prose prose--lead"><Content /></div>
+    </div>
+  </section>
+
+  {groups.map(({ group, members }) => (
+    <section class="section section--tight">
+      <div class="container">
+        <h2>{pageLabel(page, group)}</h2>
+        <ul class="people-grid">
+          {members.map((person) => (
+            <li><PersonCard person={person} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  {former.length > 0 && (
+    <section class="section section--tight">
+      <div class="container">
+        <h2>{pageLabel(page, "former")}</h2>
+        <ul class="former-list">
+          {former.map((person) => (
+            <li>
+              <strong>{displayName(person)}</strong> ({person.data.years}){person.data.note && <>. {person.data.note}</>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+</Base>
