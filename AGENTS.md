@@ -24,7 +24,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `content/site.yml` | Lab name, main menu (with submenus), footer address and links. |
 | `content/home.md` | Front page: banner text, image and buttons (front matter), about text (body). |
 | `content/images/` | Images used by the files in `content/`. |
-| `content/pages/` | Stand-alone pages and the intro text of list pages (`people.md`); `404.md` is the page-not-found text. `labels` in the front matter holds the page's section headings. |
+| `content/pages/` | Intro texts of list pages (`people.md`, `news.md`, ...) and stand-alone pages (`teaching.md`, `software.md`, `data.md`); `404.md` is the page-not-found text. `labels` in the front matter holds the page's section headings. |
 | `content/people/` | One file per lab member; photos in `content/people/images/`. |
 | `content/news/` | One file per news post; images in `content/news/images/`. |
 | `content/events/` | One file per event; images in `content/events/images/`. |
@@ -184,6 +184,27 @@ projects: [mapico]               # optional
 
 Bibliographic fields (authors, venue, volume, pages, DOI) are copied from
 the publisher's page or Crossref, not typed from memory.
+
+## Stand-alone pages (Teaching, Software, Data)
+
+A file in `content/pages/` with `standalone: true` is published at
+`/<file name>/`: the body is the intro text, and `cards` lists entries
+shown as cards. To add a course, a software package or a dataset, add a card:
+
+```yaml
+cards:
+  - title: Spatial Analytics
+    meta: 2020–                       # optional, e.g. years or authors
+    image: ./images/spatial-analytics.png   # optional, in content/pages/images/
+    imageAlt: Spatial Analytics course banner   # required with `image`
+    text: One paragraph of plain text.  # optional
+    links:                            # optional
+      - label: Course materials
+        href: https://spatial-analytics.readthedocs.io
+```
+
+A new stand-alone page also needs a `menu` entry in `content/site.yml` to
+appear in the menu.
 
 ## Design rules
 

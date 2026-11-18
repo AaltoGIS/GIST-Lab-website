@@ -110,6 +110,13 @@ img {
   border-radius: 4px;
 }
 
+/* Over the banner image a white outline with a dark ring stays visible on any colour. */
+.hero :focus-visible,
+.site-header--overlay:not(.is-scrolled) :focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 5px rgb(14 19 16 / 0.85);
+}
+
 .container {
   width: 100%;
   max-width: var(--container);
@@ -1042,7 +1049,7 @@ img {
   overflow: hidden;
   border-radius: calc(var(--radius) - 0.25rem);
   background: #fff;
-  color: var(--accent);
+  color: #2f6b3a;
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
@@ -1296,6 +1303,65 @@ img {
 .publication__abstract .prose {
   margin-top: 0.5rem;
   font-size: 0.95rem;
+}
+
+/* Card pages (teaching, software, data) */
+.card-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.info-card {
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.info-card:not(:has(.info-card__media)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.info-card__media {
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+  border-radius: calc(var(--radius) - 0.25rem);
+  background: #fff;
+}
+
+.info-card__media img {
+  max-height: 9rem;
+  width: auto;
+  object-fit: contain;
+}
+
+.info-card__title {
+  margin-bottom: 0.3rem;
+  font-size: 1.3rem;
+}
+
+.info-card__meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.info-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (max-width: 40rem) {
+  .info-card {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Footer */

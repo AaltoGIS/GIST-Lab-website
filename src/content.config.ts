@@ -46,15 +46,33 @@ const home = defineCollection({
     })
 });
 
-// Stand-alone pages; the file name is the page id (content/pages/404.md → "404").
-// `labels` holds short texts a page's layout needs, such as section headings.
+// Pages: intro texts of list pages (people.md, news.md, ...) and stand-alone pages. The file
+// name is the page id; with `standalone: true` the page is published at /<id>/.
+// `labels` holds short texts a page's layout needs, such as section headings;
+// `cards` is an optional list of entries shown as cards (courses, software, datasets).
 const pages = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/pages" }),
-  schema: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1).optional(),
-    labels: z.record(z.string(), z.string().min(1)).default({})
-  })
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().min(1),
+      description: z.string().min(1).optional(),
+      standalone: z.boolean().default(false),
+      labels: z.record(z.string(), z.string().min(1)).default({}),
+      cards: z
+        .array(
+          z
+            .object({
+              title: z.string().min(1),
+              meta: z.string().min(1).optional(),
+              text: z.string().min(1).optional(),
+              image: image().optional(),
+              imageAlt: altText.optional(),
+              links: z.array(linkSchema).default([])
+            })
+            .refine(hasAltText, altTextIssue)
+        )
+        .default([])
+    })
 });
 
 // Lab members; the file name is the page address (content/people/jane-doe.md → /people/jane-doe/).
