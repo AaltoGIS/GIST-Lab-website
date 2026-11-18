@@ -2,6 +2,8 @@
 import "@fontsource-variable/inter";
 import "@fontsource-variable/space-grotesk";
 import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import { site } from "../lib/site";
 import { withBase } from "../lib/paths";
 
@@ -25,11 +27,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" href={withBase("/gist-mark.svg")} type="image/svg+xml" />
+    <script is:inline>
+      let saved = null;
+      try {
+        saved = localStorage.getItem("theme");
+      } catch {
+        // Storage unavailable: fall back to the system preference.
+      }
+      const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader />
     <main id="main">
       <slot />
     </main>
+    <SiteFooter />
   </body>
 </html>

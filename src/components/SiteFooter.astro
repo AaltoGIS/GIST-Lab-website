@@ -1,0 +1,39 @@
+---
+import { site } from "../lib/site";
+import { withBase } from "../lib/paths";
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__about">
+      <a class="brand" href={withBase("/")}>
+        <img class="brand__mark" src={withBase("/gist-mark.svg")} alt="" width="45" height="30" />
+        <span class="brand__name">{site.name}</span>
+      </a>
+      <p>{site.fullName}</p>
+      <address>
+        {site.affiliation}<br />
+        {site.address}
+      </address>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul>
+        {site.menu.map((item) => (
+          <li><a href={withBase(item.href)}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    {site.footerLinks.length > 0 && (
+      <ul class="site-footer__links">
+        {site.footerLinks.map((link) => (
+          <li><a href={withBase(link.href)}>{link.label}</a></li>
+        ))}
+      </ul>
+    )}
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© {new Date().getFullYear()} {site.copyright}</p>
+  </div>
+</footer>

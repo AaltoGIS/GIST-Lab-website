@@ -1,0 +1,96 @@
+---
+import { site } from "../lib/site";
+import { pagePath, withBase } from "../lib/paths";
+
+const current = pagePath(Astro.url.pathname);
+const isCurrent = (href: string) => current === href;
+const inSection = (href: string) => href !== "/" && current.startsWith(href);
+---
+
+<header class="site-header" data-site-header>
+  <div class="container site-header__inner">
+    <a class="brand" href={withBase("/")}>
+      <img class="brand__mark" src={withBase("/gist-mark.svg")} alt="" width="45" height="30" />
+      <span class="brand__name">{site.name}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <button class="icon-button site-nav__toggle" type="button" aria-controls="site-menu" aria-expanded="false" data-menu-toggle>
+        <span class="site-nav__toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <ul id="site-menu" class="site-nav__list">
+        {site.menu.map((item, index) => (
+          <li class:list={["site-nav__item", { "has-children": item.children.length > 0 }]}>
+            <a
+              href={withBase(item.href)}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              class:list={{ "is-active": inSection(item.href) || item.children.some((child) => inSection(child.href)) }}
+            >
+              {item.label}
+            </a>
+            {item.children.length > 0 && (
+              <>
+                <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls={`submenu-${index}`} data-submenu-toggle>
+                  <span class="visually-hidden">{item.label} pages</span>
+                  <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </button>
+                <ul id={`submenu-${index}`} class="submenu">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={withBase(child.href)} aria-current={isCurrent(child.href) ? "page" : undefined}>{child.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button class="icon-button theme-toggle" type="button" data-theme-toggle>
+      <span class="visually-hidden">Switch between light and dark theme</span>
+      <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
+      <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+    </button>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const menuToggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+
+  const setExpanded = (button: HTMLButtonElement, open: boolean) => button.setAttribute("aria-expanded", String(open));
+  const closeAll = () => {
+    document.querySelectorAll<HTMLButtonElement>("[data-submenu-toggle], [data-menu-toggle]").forEach((button) => setExpanded(button, false));
+  };
+
+  menuToggle?.addEventListener("click", () => setExpanded(menuToggle, menuToggle.getAttribute("aria-expanded") !== "true"));
+
+  document.querySelectorAll<HTMLButtonElement>("[data-submenu-toggle]").forEach((button) => {
+    button.addEventListener("click", () => setExpanded(button, button.getAttribute("aria-expanded") !== "true"));
+    // Close the submenu when keyboard focus moves out of its menu item.
+    button.parentElement?.addEventListener("focusout", (event) => {
+      if (!button.parentElement?.contains(event.relatedTarget as Node | null)) setExpanded(button, false);
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAll();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (header && !header.contains(event.target as Node)) closeAll();
+  });
+
+  document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      // Storage unavailable (private mode): the choice lasts for this page only.
+    }
+  });
+</script>

@@ -1,11 +1,21 @@
 import { parse } from "yaml";
 import { z } from "astro/zod";
 import raw from "../../content/site.yml?raw";
+import { linkSchema } from "./schemas";
+
+const menuItem = linkSchema.extend({
+  children: z.array(linkSchema).default([])
+});
 
 const siteSchema = z.object({
   name: z.string().min(1),
   fullName: z.string().min(1),
-  description: z.string().min(1)
+  description: z.string().min(1),
+  affiliation: z.string().min(1),
+  address: z.string().min(1),
+  copyright: z.string().min(1),
+  menu: z.array(menuItem).min(1),
+  footerLinks: z.array(linkSchema).default([])
 });
 
 /** Parses content/site.yml and checks it against the schema; throws with the invalid fields listed. */

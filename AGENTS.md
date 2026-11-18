@@ -21,7 +21,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 
 | Path | Contents |
 | --- | --- |
-| `content/site.yml` | Lab name and description. |
+| `content/site.yml` | Lab name, main menu (with submenus), footer address and links. |
 | `content/home.md` | Front page text. |
 | `content/pages/` | Stand-alone pages; `404.md` is the page-not-found text. |
 | `public/` | Files served unchanged, e.g. the logo mark `gist-mark.svg`. |
@@ -29,7 +29,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `src/lib/site.ts` | Schema for `content/site.yml`. |
 | `src/lib/base-path.mjs` | Adds the base path to internal links (templates and Markdown). |
 | `tests/` | Unit tests (`node --test`). |
-| `src/layouts/`, `src/pages/` | Page layout and routes. |
+| `src/layouts/`, `src/components/`, `src/pages/` | Page layout, header and footer, routes. |
 | `src/styles/global.css` | All styling: colour tokens, light and dark themes. |
 | `.github/workflows/` | `validate.yml` builds every pull request; `deploy.yml` publishes `main`. |
 
@@ -39,6 +39,8 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 - Internal links start with `/`, e.g. `[our team](/people/)`. The build adds
   the base path (`/GIST-Lab-website` until the domain switch); never write the
   base path yourself.
+- The menu is edited in `content/site.yml`: add an item with `label` and
+  `href`; a `children` list turns it into a submenu.
 - Keep text from the lab as written; fix only clear typos.
 
 ## Design rules
