@@ -41,7 +41,7 @@ after every change.
 | `src/styles/global.css` | All styling: colour tokens, light and dark themes. |
 | `content/redirects.yml` | Old WordPress addresses and the pages they now lead to. |
 | `site.config.mjs` | Address of the published site (`site`, `base`). |
-| `.github/workflows/` | `validate.yml` builds and link-checks every pull request; `deploy.yml` publishes `main` and rebuilds weekly. |
+| `.github/workflows/` | `claude.yml` runs Claude Code when the repository owner writes `@claude`; `validate.yml` builds and link-checks every pull request; `deploy.yml` publishes `main` and rebuilds weekly. |
 
 ## Editing content
 
@@ -221,6 +221,16 @@ appear in the menu.
 - Headings use Space Grotesk, body text Inter. Both are self-hosted; the site
   makes no requests to font services.
 - Check changed pages in both themes and at phone width (about 375 px).
+
+## Asking Claude on GitHub
+
+Writing `@claude` with a request in an issue, an issue or pull request
+comment, or a pull request review starts `.github/workflows/claude.yml`:
+Claude answers there or opens a pull request with the change, which is then
+reviewed and merged as usual. Only the GitHub accounts named in the
+workflow's `if:` condition can start it (at present `HTenkanen`); to allow
+another account, add it there. Pull requests from forks are skipped. The workflow needs the repository secret
+`CLAUDE_CODE_OAUTH_TOKEN`.
 
 ## Domain switch
 

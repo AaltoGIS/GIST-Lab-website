@@ -1,0 +1,58 @@
+name: Claude Code
+
+# Writing @claude in an issue, a comment or a pull request review asks Claude to
+# answer or to open a pull request with the change. Only the GitHub accounts named
+# in `if:` below can trigger it, and pull requests from forks are skipped, so the job
+# never runs a fork's code with write access. Needs the repository secret
+# CLAUDE_CODE_OAUTH_TOKEN.
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  # Only new issues: on `assigned` the request text would come from the issue's
+  # author, not from the account that assigns it.
+  issues:
+    types: [opened]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  claude:
+    if: |
+      github.actor == 'HTenkanen' && (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude') &&
+          github.event.pull_request.head.repo.full_name == github.repository) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude') &&
+          github.event.pull_request.head.repo.full_name == github.repository) ||
+        (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    env:
+      ASTRO_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+      # Dependencies are installed so Claude can run the tests, the build and the link check.
+      # Install scripts are skipped: on review events the checkout can hold a contributor's code.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@5a856893345e332afa621934082d8c660c26d689 # v1.0.282
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          allow_fork_prs: "false"
+          additional_permissions: |
+            actions: read
