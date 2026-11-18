@@ -11,6 +11,7 @@ labels:
   website: Project website
   team: GIST Lab team
   news: News
+  publications: Publications
 ---
 
 Ongoing and past research projects of GIST Lab.

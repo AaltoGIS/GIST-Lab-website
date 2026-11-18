@@ -1,0 +1,84 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PublicationItem from "../../components/PublicationItem.astro";
+import { pageLabel } from "../../lib/labels";
+import { displayName } from "../../lib/people";
+import { projectName } from "../../lib/projects";
+import { getPublications } from "../../lib/publications";
+
+const page = await getEntry("pages", "publications");
+if (!page) throw new Error("content/pages/publications.md is missing");
+const { Content } = await render(page);
+const publications = await getPublications();
+const years = [...new Set(publications.map((publication) => publication.data.year))];
+const usedProjects = new Set(publications.flatMap((publication) => publication.data.projects.map((ref) => ref.id)));
+const usedPeople = new Set(publications.flatMap((publication) => publication.data.people.map((ref) => ref.id)));
+const projects = (await getCollection("projects")).filter((project) => usedProjects.has(project.id)).sort((a, b) => projectName(a).localeCompare(projectName(b), "en"));
+const people = (await getCollection("people")).filter((person) => usedPeople.has(person.id)).sort((a, b) => a.data.name.localeCompare(b.data.name, "en"));
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <section class="section page-intro">
+    <div class="container">
+      <h1>{page.data.title}</h1>
+      <div class="prose prose--lead"><Content /></div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <form class="pub-filters" data-pub-filters hidden>
+        <label>{pageLabel(page, "year")}
+          <select name="year"><option value="">{pageLabel(page, "all")}</option>{years.map((year) => <option value={year}>{year}</option>)}</select>
+        </label>
+        <label>{pageLabel(page, "project")}
+          <select name="projects"><option value="">{pageLabel(page, "all")}</option>{projects.map((project) => <option value={project.id}>{projectName(project)}</option>)}</select>
+        </label>
+        <label>{pageLabel(page, "person")}
+          <select name="people"><option value="">{pageLabel(page, "all")}</option>{people.map((person) => <option value={person.id}>{displayName(person)}</option>)}</select>
+        </label>
+        <output class="pub-filters__count" aria-live="polite"><span data-pub-count>{publications.length}</span> {pageLabel(page, "count")}</output>
+      </form>
+
+      {years.map((year) => (
+        <section class="pub-year" data-pub-year>
+          <h2>{year}</h2>
+          <ol class="publication-list">
+            {publications.filter((publication) => publication.data.year === year).map((publication) => (
+              <PublicationItem publication={publication} showAbstract />
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-pub-filters]");
+  if (form) {
+    form.hidden = false;
+    const items = [...document.querySelectorAll<HTMLElement>(".publication")];
+    const count = form.querySelector("[data-pub-count]");
+    const apply = () => {
+      const year = (form.elements.namedItem("year") as HTMLSelectElement).value;
+      const project = (form.elements.namedItem("projects") as HTMLSelectElement).value;
+      const person = (form.elements.namedItem("people") as HTMLSelectElement).value;
+      let shown = 0;
+      for (const item of items) {
+        const visible =
+          (!year || item.dataset.year === year) &&
+          (!project || (JSON.parse(item.dataset.projects ?? "[]") as string[]).includes(project)) &&
+          (!person || (JSON.parse(item.dataset.people ?? "[]") as string[]).includes(person));
+        item.hidden = !visible;
+        if (visible) shown += 1;
+      }
+      document.querySelectorAll<HTMLElement>("[data-pub-year]").forEach((group) => {
+        group.hidden = !group.querySelector(".publication:not([hidden])");
+      });
+      if (count) count.textContent = String(shown);
+    };
+    form.addEventListener("change", apply);
+  }
+</script>

@@ -6,6 +6,8 @@ import { pageLabel } from "../../lib/labels";
 import { withBase } from "../../lib/paths";
 import { displayName, getPeople, photoAlt, type Person } from "../../lib/people";
 import { getProjects, projectHref, projectName } from "../../lib/projects";
+import { getPublications } from "../../lib/publications";
+import PublicationItem from "../../components/PublicationItem.astro";
 import { site } from "../../lib/site";
 
 export async function getStaticPaths() {
@@ -26,6 +28,7 @@ if (!page) throw new Error("content/pages/people.md is missing");
 const { Content } = await render(person);
 const name = displayName(person);
 const projects = (await getProjects()).filter((project) => project.data.team.some((ref) => ref.id === person.id));
+const publications = (await getPublications()).filter((publication) => publication.data.people.some((ref) => ref.id === person.id));
 const hasContact = Boolean(data.email || data.emailText || data.links.length > 0);
 const hasAside = Boolean(data.photo || hasContact);
 ---
@@ -78,6 +81,15 @@ const hasAside = Boolean(data.photo || hasContact);
                 );
               })}
             </ul>
+          </section>
+        )}
+
+        {publications.length > 0 && (
+          <section class="profile__section">
+            <h2>{pageLabel(page, "publications")}</h2>
+            <ol class="publication-list">
+              {publications.map((publication) => <PublicationItem publication={publication} />)}
+            </ol>
           </section>
         )}
 

@@ -173,4 +173,27 @@ const projects = defineCollection({
       })
 });
 
-export const collections = { home, pages, people, news, events, projects };
+// Publications: one file per paper; the body is the abstract (optional).
+const publications = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/publications" }),
+  schema: z
+    .object({
+      title: z.string().min(1),
+      authors: z.string().min(1),
+      year: z.number().int().min(1900).max(2100),
+      venue: z.string().min(1),
+      // Crossref's recommended DOI pattern; it keeps the DOI usable as a URL path as is.
+      doi: z
+        .string()
+        .regex(/^10\.\d{4,9}\/[-._;()/:a-z0-9]+$/i, "write the DOI without https://doi.org/, e.g. 10.1038/s41467-025-56906-7")
+        .refine((doi) => !/(^|\/)\.{1,2}(\/|$)/.test(doi), "a DOI cannot contain . or .. path segments")
+        .optional(),
+      url: z.url({ protocol: /^https?$/ }).optional(),
+      openAccess: z.boolean().default(false),
+      people: z.array(reference("people")).default([]),
+      projects: z.array(reference("projects")).default([])
+    })
+    .refine((publication) => publication.doi || publication.url, { message: "give a `doi` or a `url`", path: ["doi"] })
+});
+
+export const collections = { home, pages, people, news, events, projects, publications };

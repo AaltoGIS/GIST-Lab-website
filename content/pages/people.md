@@ -10,6 +10,7 @@ labels:
   former: Former lab members
   education: Education
   projects: Projects
+  publications: Publications
   email: Email
 ---
 

@@ -29,6 +29,7 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 | `content/news/` | One file per news post; images in `content/news/images/`. |
 | `content/events/` | One file per event; images in `content/events/images/`. |
 | `content/projects/` | One file per research project; logos and figures in `content/projects/images/`. |
+| `content/publications/` | One file per publication. |
 | `public/` | Files served unchanged, e.g. the logo mark `gist-mark.svg`. |
 | `src/content.config.ts` | Schemas for the Markdown files (required fields, types). |
 | `src/lib/site.ts` | Schema for `content/site.yml`. |
@@ -160,6 +161,29 @@ page: false                   # optional; list the project without a page
 
 To add a project to the Research submenu, add it to `menu` in
 `content/site.yml`.
+
+## Publications
+
+A publication is `content/publications/<year>-<first-author>-<word>.md`. The
+Publications page lists them by year with filters for year, project and lab
+member; profile and project pages list the matching ones. The body is the
+abstract (optional; shown behind a toggle).
+
+```yaml
+---
+title: "Global gridded population datasets systematically underrepresent rural population"
+authors: "Láng-Ritter, J., M. Keskinen & H. Tenkanen"
+year: 2025
+venue: "Nature Communications 16, 2170"
+doi: 10.1038/s41467-025-56906-7   # without https://doi.org/; or give `url` instead
+openAccess: true                 # optional; shows an Open access badge
+people: [josias-lang-ritter, henrikki-tenkanen]   # lab members among the authors
+projects: [mapico]               # optional
+---
+```
+
+Bibliographic fields (authors, venue, volume, pages, DOI) are copied from
+the publisher's page or Crossref, not typed from memory.
 
 ## Design rules
 

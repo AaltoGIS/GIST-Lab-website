@@ -8,6 +8,8 @@ import { getNews } from "../../lib/news";
 import { withBase } from "../../lib/paths";
 import { displayName } from "../../lib/people";
 import { getProjects, projectName, projectSummary, type Project } from "../../lib/projects";
+import { getPublications } from "../../lib/publications";
+import PublicationItem from "../../components/PublicationItem.astro";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -25,6 +27,7 @@ if (!page) throw new Error("content/pages/research.md is missing");
 const { Content } = await render(project);
 const team = await getEntries(data.team);
 const news = (await getNews()).filter((post) => post.data.projects.some((ref) => ref.id === project.id));
+const publications = (await getPublications()).filter((publication) => publication.data.projects.some((ref) => ref.id === project.id));
 const facts = [
   ["years", data.years],
   ["funders", data.funders.join(", ")],
@@ -76,6 +79,15 @@ const facts = [
           )}
         </aside>
       </div>
+
+      {publications.length > 0 && (
+        <section class="project-news">
+          <h2>{pageLabel(page, "publications")}</h2>
+          <ol class="publication-list">
+            {publications.map((publication) => <PublicationItem publication={publication} />)}
+          </ol>
+        </section>
+      )}
 
       {news.length > 0 && (
         <section class="project-news">
