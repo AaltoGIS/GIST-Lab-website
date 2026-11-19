@@ -17,14 +17,17 @@ export function photoAlt(person: Person): string {
   return person.data.photoAlt ?? `Photo of ${person.data.name}`;
 }
 
+/** Display order of the statuses on the People page. */
+const STATUS_ORDER: Person["data"]["status"][] = ["current", "affiliate", "former"];
+
 /**
- * All people sorted for display: current members first, by `order`; former
- * members by most recent years; then by name.
+ * All people sorted for display: current members, then affiliates, both by
+ * `order`; then former members by most recent years; ties by name.
  */
 export async function getPeople(): Promise<Person[]> {
   const people = await getCollection("people");
   return people.sort((a, b) => {
-    const byStatus = Number(a.data.status === "former") - Number(b.data.status === "former");
+    const byStatus = STATUS_ORDER.indexOf(a.data.status) - STATUS_ORDER.indexOf(b.data.status);
     if (byStatus) return byStatus;
     const byOrder = a.data.status === "former" ? endYear(b) - endYear(a) : a.data.order - b.data.order;
     return byOrder || a.data.name.localeCompare(b.data.name, "en");

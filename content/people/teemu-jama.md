@@ -1,8 +1,9 @@
 ---
 name: Teemu Jama
-prefix: MSc
+prefix: Dr.
 role: Doctoral researcher
-status: current
+status: former
+years: 2021–2026
 order: 6
 affiliation: "Department of Architecture / Department of Built Environment, Aalto University"
 photo: "./images/teemu-jama.jpg"

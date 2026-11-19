@@ -90,7 +90,7 @@ const people = defineCollection({
         name: z.string().min(1),
         prefix: z.string().min(1).optional(),
         role: z.string().min(1).optional(),
-        status: z.enum(["current", "former"]),
+        status: z.enum(["current", "affiliate", "former"]),
         order: z.number().int().default(100),
         affiliation: z.string().min(1).optional(),
         photo: image().optional(),

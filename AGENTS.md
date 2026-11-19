@@ -63,17 +63,18 @@ after every change.
 ## People
 
 Each person is one file, `content/people/<first-last>.md`; the file name is
-the profile address (`/people/<first-last>/`). Current members get a profile
-page and a card on the People page, all in one grid ordered by `order`;
-former members appear in the one-line list. The body of the file is the
-biography (Markdown).
+the profile address (`/people/<first-last>/`). Current members and
+affiliates (e.g. part-time researchers employed elsewhere) get a profile page
+and a card on the People page, in two grids ("Current lab members", "GIST Lab
+affiliates"), each ordered by `order`; former members appear in the one-line
+list. The body of the file is the biography (Markdown).
 
 ```yaml
 ---
 name: Jane Doe
 prefix: Dr.                 # optional, shown before the name
 role: Postdoctoral researcher
-status: current             # current | former
+status: current             # current | affiliate | former
 order: 6                    # optional, position on the People page
 affiliation: Department of X, Aalto University   # optional; default from site.yml
 photo: ./images/jane-doe.jpg                     # optional
