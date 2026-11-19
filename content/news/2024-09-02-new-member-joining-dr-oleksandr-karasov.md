@@ -4,6 +4,7 @@ date: 2024-09-02
 author: Henrikki Tenkanen
 image: ./images/2024-09-02-Oleksandr_photo.jpeg
 imageAlt: "Portrait of Oleksandr Karasov"
+imagePosition: 50% 25%
 ---
 
 We are happy to announce that we have a new team member joining the GIST Lab, Dr. Oleksandr Karasov. Welcome!
