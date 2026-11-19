@@ -1,14 +1,14 @@
 ---
 import { site } from "../lib/site";
 import { withBase } from "../lib/paths";
+import BrandLogos from "./BrandLogos.astro";
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <div class="site-footer__about">
       <a class="brand" href={withBase("/")}>
-        <img class="brand__mark" src={withBase("/gist-mark.svg")} alt="" width="45" height="30" />
-        <span class="brand__name">{site.name}</span>
+        <BrandLogos />
       </a>
       <p>{site.fullName}</p>
       <address>
