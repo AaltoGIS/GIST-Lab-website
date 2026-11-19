@@ -5,6 +5,7 @@ role: Postdoctoral researcher
 status: current
 order: 3
 photo: "./images/josias-lang-ritter.jpg"
+photoPosition: 50% 12%
 emailText: firstname.lastname@aalto.fi
 ---
 
