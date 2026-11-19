@@ -49,6 +49,9 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
   Every image needs alt text.
 - The menu is edited in `content/site.yml`: add an item with `label` and
   `href`; a `children` list turns it into a submenu.
+- The header and footer show `content/images/aalto-logo.png` and
+  `content/images/gist-logo.png`; on dark backgrounds the `-on-dark` copies
+  (white lettering) replace them. To change a logo, replace both files.
 - Keep text from the lab as written; fix only clear typos.
 
 ## People
