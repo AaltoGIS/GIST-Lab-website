@@ -5,6 +5,7 @@ role: Postdoctoral researcher
 status: current
 order: 4
 photo: "./images/oleksandr-karasov.jpg"
+photoPosition: 50% 47%
 email: "oleksandr.karasov@aalto.fi"
 education:
   - year: 2020
