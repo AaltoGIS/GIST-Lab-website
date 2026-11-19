@@ -2,7 +2,7 @@
 title: "A data-driven approach for estimating travel-related carbon emissions with high spatial and temporal granularity"
 authors: "Tenkanen, H., N. Chau & S. Dey"
 year: 2024
-venue: "Short papers and posters of the 27th AGILE Conference on Geographic Information Science, 4–7 June 2024, Glasgow, United Kingdom."
+venue: "AGILE: GIScience Series 5"
 doi: 10.5194/agile-giss-5-45-2024
 openAccess: true
 people:

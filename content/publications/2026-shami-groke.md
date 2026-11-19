@@ -3,7 +3,8 @@ title: "GROKE: Vision-Free Navigation Instruction Evaluation via Graph Reasoning
 authors: "Shami, F., S. Dey, N. Van de Weghe & H. Tenkanen"
 year: 2026
 venue: "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026) 40371–40391"
-url: https://arxiv.org/abs/2601.07375
+doi: 10.18653/v1/2026.acl-long.1874
+openAccess: true
 people:
   - farzad-shami
   - henrikki-tenkanen
