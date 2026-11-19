@@ -32,7 +32,7 @@ const newsTitle = (await getEntry("pages", "news"))?.data.title;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,14 +56,12 @@ const newsTitle = (await getEntry("pages", "news"))?.data.title;
     {newsTitle && <link rel="alternate" type="application/rss+xml" title={`${site.name} – ${newsTitle}`} href={withBase("/news/rss.xml")} />}
     <link rel="icon" href={withBase("/gist-mark.svg")} type="image/svg+xml" />
     <script is:inline>
-      let saved = null;
+      // The site opens dark; a visitor's own choice from the theme toggle wins.
       try {
-        saved = localStorage.getItem("theme");
+        if (localStorage.getItem("theme") === "light") document.documentElement.dataset.theme = "light";
       } catch {
-        // Storage unavailable: fall back to the system preference.
+        // Storage unavailable: stay dark.
       }
-      const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = dark ? "dark" : "light";
     </script>
   </head>
   <body>

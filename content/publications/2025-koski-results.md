@@ -1,0 +1,11 @@
+---
+title: "Results from questionnaire about trust in using artificial intelligence in topographic data production"
+authors: "Koski, C., P. Kettunen, H. Tenkanen & J. Oksanen"
+year: 2025
+venue: "Zenodo (dataset)"
+doi: 10.5281/zenodo.15164933
+openAccess: true
+people:
+  - christian-koski
+  - henrikki-tenkanen
+---

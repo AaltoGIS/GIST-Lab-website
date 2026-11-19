@@ -224,12 +224,17 @@ appear in the menu.
 - Colours come from the tokens at the top of `global.css`. Each token holds a
   light and a dark value through `light-dark()`; new CSS uses tokens, not
   literal colours.
-- The logo green `--brand` (`#92c093`) is for decoration and dark mode. Text,
-  links and buttons on light backgrounds use `--accent` and `--link`, which
-  meet WCAG AA contrast.
+- The logo green `--brand` (`#92c093`) is for decoration and dark mode.
+- Text is never green: links and headings use the text colour, and links in
+  running text carry a green underline (`--underline`). Green (`--accent`)
+  marks badges, buttons and the keyboard focus ring; both greens meet WCAG AA
+  contrast.
 - Headings use Montserrat (the lettering of the lab logo), body text Open
   Sans, as on the old site. Both are self-hosted; the site makes no requests
   to font services.
+- The site opens in the dark theme (`data-theme="dark"` on `<html>`); the
+  moon/sun button in the header switches to light, and the browser remembers
+  that choice.
 - Check changed pages in both themes and at phone width (about 375 px).
 
 ## Asking Claude on GitHub
