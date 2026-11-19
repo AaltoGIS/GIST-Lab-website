@@ -24,9 +24,8 @@ const { Content } = await render(home);
       style={`object-position: ${hero.imagePosition}`}
     />
     <div class="hero__shade" aria-hidden="true"></div>
-    <div class="container hero__content">
+    <div class="hero__box">
       <h1 class="hero__title">{hero.title}</h1>
-      <p class="hero__subtitle">{hero.subtitle}</p>
       <p class="hero__text">{hero.text}</p>
       {hero.actions.length > 0 && (
         <div class="hero__actions">
