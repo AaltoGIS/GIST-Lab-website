@@ -2,7 +2,7 @@
 name: Seyed Hossein Hosseini
 prefix: MSc
 role: Doctoral researcher
-group: doctoral
+status: current
 order: 9
 affiliation: "GIST Lab, Department of Built Environment, Aalto University"
 photo: "./images/seyed-hossein-hosseini.jpg"
