@@ -5,6 +5,7 @@ role: Doctoral researcher
 status: current
 order: 11
 photo: "./images/bryan-vallejo.jpg"
+photoPosition: 50% 43%
 email: "bryan.vallejo@aalto.fi"
 education:
   - year: 2022

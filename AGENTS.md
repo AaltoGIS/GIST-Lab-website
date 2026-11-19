@@ -89,6 +89,9 @@ education:                  # optional, newest first
 
 - Add a person: save the photo in `content/people/images/` and create the
   file as above.
+- If a face is cut off or sits too low on the People page card, set
+  `photoPosition`: the second value moves the crop from the top (`0%`) to
+  the bottom (`100%`) of the photo.
 - When someone leaves: set `status: former`, add `years: 2023–2026` (a year
   or a range of four-digit years) and an
   optional one-line `note:` (e.g. their new position). Their profile page
