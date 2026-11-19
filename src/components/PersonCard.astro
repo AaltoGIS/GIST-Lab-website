@@ -19,7 +19,7 @@ const initials = data.name
 <a class="person-card" href={withBase(`/people/${person.id}/`)}>
   <div class="person-card__photo">
     {data.photo ? (
-      <Image src={data.photo} alt="" widths={[240, 480]} sizes="(min-width: 48rem) 15rem, 45vw" style={`object-position: ${data.photoPosition}`} />
+      <Image src={data.photo} alt="" widths={[320, 640]} sizes="(min-width: 72rem) 16rem, (min-width: 32rem) 45vw, 90vw" style={`object-position: ${data.photoPosition}`} />
     ) : (
       <span class="person-card__initials" aria-hidden="true">{initials}</span>
     )}

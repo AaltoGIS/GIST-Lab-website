@@ -2,7 +2,7 @@
 name: Bryan Vallejo
 prefix: MSc
 role: Doctoral researcher
-group: doctoral
+status: current
 order: 11
 photo: "./images/bryan-vallejo.jpg"
 email: "bryan.vallejo@aalto.fi"

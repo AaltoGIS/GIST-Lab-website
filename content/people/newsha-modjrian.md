@@ -2,7 +2,7 @@
 name: Newsha Modjrian
 prefix: MSc
 role: Doctoral researcher
-group: doctoral
+status: current
 order: 8
 photo: "./images/newsha-modjrian.jpg"
 email: "newsha.modjrian@aalto.fi"

@@ -2,7 +2,7 @@
 name: Henrikki Tenkanen
 prefix: Dr.
 role: Assistant Professor
-group: pi
+status: current
 order: 1
 photo: "./images/henrikki-tenkanen.jpg"
 emailText: firstname.lastname@aalto.fi

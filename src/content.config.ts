@@ -84,12 +84,12 @@ const people = defineCollection({
         name: z.string().min(1),
         prefix: z.string().min(1).optional(),
         role: z.string().min(1).optional(),
-        group: z.enum(["pi", "staff", "postdoc", "doctoral", "visiting", "former"]),
+        status: z.enum(["current", "former"]),
         order: z.number().int().default(100),
         affiliation: z.string().min(1).optional(),
         photo: image().optional(),
         photoAlt: altText.optional(),
-        photoPosition: z.string().default("50% 30%"),
+        photoPosition: z.string().default("50% 10%"),
         email: z
           .email()
           .refine((value) => !value.startsWith("firstname.lastname@"), "use `emailText` for an address pattern such as firstname.lastname@aalto.fi")
@@ -110,11 +110,11 @@ const people = defineCollection({
           .optional(),
         note: z.string().min(1).optional()
       })
-      .refine((person) => person.group === "former" || person.role, {
+      .refine((person) => person.status === "former" || person.role, {
         message: "`role` is required for current members",
         path: ["role"]
       })
-      .refine((person) => person.group !== "former" || person.years, {
+      .refine((person) => person.status !== "former" || person.years, {
         message: "`years` is required for former members",
         path: ["years"]
       })
