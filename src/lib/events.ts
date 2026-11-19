@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { formatDateRange, formatMonthRange, isoDay } from "./dates";
 
 export type LabEvent = CollectionEntry<"events">;
 
@@ -26,4 +27,13 @@ export async function getEvents(today = new Date()): Promise<{ upcoming: LabEven
     .filter((event) => !upcoming.includes(event))
     .sort((a, b) => (last(b) ?? -Infinity) - (last(a) ?? -Infinity) || a.data.title.localeCompare(b.data.title, "en"));
   return { upcoming, past };
+}
+
+/** An event's dates for `<time>`: "7–9 May 2025", or "February – May 2025" for month dates. */
+export function eventDates(event: LabEvent): { datetime: string; text: string } | undefined {
+  const { date, endDate, byMonth } = event.data;
+  if (!date) return undefined;
+  return byMonth
+    ? { datetime: isoDay(date).slice(0, 7), text: formatMonthRange(date, endDate) }
+    : { datetime: isoDay(date), text: formatDateRange(date, endDate) };
 }

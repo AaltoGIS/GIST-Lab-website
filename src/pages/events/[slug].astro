@@ -2,10 +2,9 @@
 import { Image } from "astro:assets";
 import { getCollection, getEntry, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
-import { formatDateRange, isoDay } from "../../lib/dates";
 import { excerpt } from "../../lib/excerpt.mjs";
 import { pageLabel } from "../../lib/labels";
-import type { LabEvent } from "../../lib/events";
+import { eventDates, type LabEvent } from "../../lib/events";
 import { withBase } from "../../lib/paths";
 
 export async function getStaticPaths() {
@@ -22,6 +21,7 @@ const { data } = event;
 const page = await getEntry("pages", "events");
 if (!page) throw new Error("content/pages/events.md is missing");
 const { Content } = await render(event);
+const dates = eventDates(event);
 ---
 
 <Base title={data.title} description={excerpt(event.body)} image={data.image}>
@@ -31,8 +31,8 @@ const { Content } = await render(event);
         <p class="eyebrow"><a href={withBase("/events/")}>{page.data.title}</a></p>
         <h1>{data.title}</h1>
         <p class="post__meta">
-          {data.date && <time datetime={isoDay(data.date)}>{formatDateRange(data.date, data.endDate)}</time>}
-          {data.date && data.location && " · "}
+          {dates && <time datetime={dates.datetime}>{dates.text}</time>}
+          {dates && data.location && " · "}
           {data.location}
         </p>
       </header>

@@ -1,7 +1,6 @@
 ---
-import { formatDateRange, isoDay } from "../lib/dates";
 import { withBase } from "../lib/paths";
-import type { LabEvent } from "../lib/events";
+import { eventDates, type LabEvent } from "../lib/events";
 
 interface Props {
   event: LabEvent;
@@ -9,8 +8,11 @@ interface Props {
 
 const { event } = Astro.props;
 const { data } = event;
-const day = data.date ? new Intl.DateTimeFormat("en-GB", { day: "numeric", timeZone: "UTC" }).format(data.date) : "";
-const month = data.date ? new Intl.DateTimeFormat("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }).format(data.date) : "";
+const dates = eventDates(event);
+// The date box shows day and month, or month and year for events dated by month.
+const format = (options: Intl.DateTimeFormatOptions) => (data.date ? new Intl.DateTimeFormat("en-GB", { ...options, timeZone: "UTC" }).format(data.date) : "");
+const day = data.byMonth ? format({ month: "short" }) : format({ day: "numeric" });
+const month = data.byMonth ? format({ year: "numeric" }) : format({ month: "short", year: "numeric" });
 ---
 
 <article class="event-item">
@@ -27,8 +29,8 @@ const month = data.date ? new Intl.DateTimeFormat("en-GB", { month: "short", yea
   <div class="event-item__body">
     <h3 class="event-item__title"><a href={withBase(`/events/${event.id}/`)}>{data.title}</a></h3>
     <p class="event-item__meta">
-      {data.date && <time datetime={isoDay(data.date)}>{formatDateRange(data.date, data.endDate)}</time>}
-      {data.date && data.location && " · "}
+      {dates && <time datetime={dates.datetime}>{dates.text}</time>}
+      {dates && data.location && " · "}
       {data.location}
     </p>
   </div>

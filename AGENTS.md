@@ -132,7 +132,7 @@ An event is `content/events/<short-title>.md`:
 ---
 title: Workshop on accessibility tools
 date: 2026-05-07          # optional; events without a date are listed as past
-endDate: 2026-05-09       # optional
+endDate: 2026-05-09       # optional; give both as months (2025-02, 2025-05) when the days are not known
 location: Otaniemi, Espoo # optional
 link: https://example.org/workshop   # optional, shown as a button
 image: ./images/2026-05-07-logo.png  # optional
@@ -140,10 +140,11 @@ imageAlt: Workshop logo   # required with `image`
 ---
 ```
 
-Dates are written as `YYYY-MM-DD`; `npm test` checks that each is a real
-calendar day. Events whose (end) date is today or later are listed as upcoming. The
-decision is made when the site is built; the deploy workflow also rebuilds
-the site every Monday.
+Dates are written as `YYYY-MM-DD` (events may give months, `YYYY-MM`); `npm
+test` checks that each is a real calendar day or month. Events whose (end)
+date is today or later are listed as upcoming; a month-dated event counts
+until the end of its last month. The decision is made when the site is
+built; the deploy workflow also rebuilds the site every Monday.
 
 ## Research projects
 
