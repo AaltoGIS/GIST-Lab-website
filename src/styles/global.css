@@ -16,8 +16,8 @@
   --on-accent: light-dark(#ffffff, #0e1310);
   --glow: #f4a259;
 
-  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-heading: "Space Grotesk Variable", var(--font-body);
+  --font-body: "Open Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Montserrat Variable", var(--font-body);
 
   --container: 72rem;
   --gutter: clamp(1rem, 4vw, 2rem);
@@ -69,7 +69,6 @@ h3,
 h4 {
   font-family: var(--font-heading);
   line-height: 1.2;
-  letter-spacing: -0.015em;
   margin: 0 0 0.6em;
 }
 
@@ -271,6 +270,7 @@ img {
 
 .site-nav {
   margin-left: auto;
+  font-family: var(--font-heading);
 }
 
 .site-nav__list,
