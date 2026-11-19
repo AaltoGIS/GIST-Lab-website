@@ -2,7 +2,7 @@
 name: Subhrasankha Dey
 prefix: Dr.
 role: Postdoctoral researcher
-group: postdoc
+status: current
 order: 5
 photo: "./images/subhrasankha-dey.jpg"
 email: "subhrasankha.dey@aalto.fi"

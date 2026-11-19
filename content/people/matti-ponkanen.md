@@ -1,6 +1,6 @@
 ---
 name: Matti Pönkänen
 prefix: MSc
-group: former
+status: former
 years: 2022
 ---

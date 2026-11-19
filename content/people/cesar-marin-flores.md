@@ -2,7 +2,7 @@
 name: Cesar Marin Flores
 prefix: MSc
 role: Doctoral researcher
-group: doctoral
+status: current
 order: 7
 photo: "./images/cesar-marin-flores.jpg"
 email: "cesar.marinflores@aalto.fi"

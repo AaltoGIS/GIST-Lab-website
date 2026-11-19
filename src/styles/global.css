@@ -665,15 +665,20 @@ img {
 
 .people-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(12.5rem, 100%), 1fr));
-  gap: 2rem 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+  gap: 1.5rem;
   margin: 1.5rem 0 0;
   padding: 0;
   list-style: none;
 }
 
+/* Cards as on the old site: a panel, a landscape photo with large rounded corners, the title in italics. */
 .person-card {
   display: block;
+  height: 100%;
+  padding: 0.5rem 0.5rem 1.1rem;
+  border-radius: var(--radius);
+  background: var(--surface-2);
   color: inherit;
   text-decoration: none;
 }
@@ -681,11 +686,11 @@ img {
 .person-card__photo {
   display: grid;
   place-items: center;
-  aspect-ratio: 4 / 5;
-  margin-bottom: 0.9rem;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 1rem;
   overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--surface-2);
+  border-radius: 2.75rem;
+  background: var(--surface);
 }
 
 .person-card__photo img {
@@ -707,8 +712,8 @@ img {
 }
 
 .person-card__name {
-  margin-bottom: 0.2rem;
-  font-size: 1.1rem;
+  margin: 0 0.75rem 0.2rem;
+  font-size: 1.05rem;
 }
 
 .person-card:hover .person-card__name {
@@ -718,9 +723,10 @@ img {
 }
 
 .person-card__role {
-  margin: 0;
+  margin: 0 0.75rem;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.925rem;
+  font-style: italic;
 }
 
 .former-list {

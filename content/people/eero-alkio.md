@@ -1,6 +1,6 @@
 ---
 name: Eero Alkio
 prefix: MSc
-group: former
+status: former
 years: 2023
 ---
