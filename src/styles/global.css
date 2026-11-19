@@ -686,6 +686,7 @@ img {
 }
 
 .person-card__photo {
+  position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 4 / 3;
@@ -695,7 +696,11 @@ img {
   background: var(--surface);
 }
 
+/* Pinned to the box: as a grid item the photo would grow the row to its own height, show only
+   its top and leave `photoPosition` nothing to crop. */
 .person-card__photo img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
