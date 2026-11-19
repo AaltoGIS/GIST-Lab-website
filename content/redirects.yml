@@ -1,0 +1,74 @@
+# Old addresses of the WordPress site and the pages they now lead to.
+# Each line is `old path: new path`; both are paths on this site.
+
+# Pages
+/data-driven-mobility-analytics-workshops/: /research/ddma-workshops/
+/conferences-and-talks/: /events/
+/sample-page/: /
+/feed/: /news/rss.xml
+
+# People (former members lead to the People page)
+/rushmore_teams/dr-oleksandr-karasov/: /people/oleksandr-karasov/
+/rushmore_teams/dr-subhrasankha-dey/: /people/subhrasankha-dey/
+/rushmore_teams/dr-tiina-rinne/: /people/
+/rushmore_teams/farzad-shami/: /people/farzad-shami/
+/rushmore_teams/henrikki-tenkanen/: /people/henrikki-tenkanen/
+/rushmore_teams/josias-lang-ritter/: /people/josias-lang-ritter/
+/rushmore_teams/juho-hanninen/: /people/
+/rushmore_teams/jussi-nikander/: /people/jussi-nikander/
+/rushmore_teams/lotta-elonen/: /people/
+/rushmore_teams/marta-jemeljanova/: /people/
+/rushmore_teams/msc-bryan-vallejo/: /people/bryan-vallejo/
+/rushmore_teams/msc-cesar-marin-flores/: /people/cesar-marin-flores/
+/rushmore_teams/msc-christian-koski/: /people/christian-koski/
+/rushmore_teams/msc-eero-alkio/: /people/
+/rushmore_teams/msc-matti-ponkanen/: /people/
+/rushmore_teams/msc-newsha-modjrian/: /people/newsha-modjrian/
+/rushmore_teams/msc-ngoc-chau/: /people/
+/rushmore_teams/msc-teemu-jama/: /people/teemu-jama/
+/rushmore_teams/seyed-hosseini/: /people/seyed-hossein-hosseini/
+/rushmore_teams/tianqi-wang/: /people/
+/rushmore_teams/wenrui-dai/: /people/
+
+# News posts
+/eero-alkio-finished-his-msc-thesis-congrats/: /news/eero-alkio-finished-his-msc-thesis-congrats/
+/ngoc-chau-finished-her-msc-thesis-congrats/: /news/ngoc-chau-finished-her-msc-thesis-congrats/
+/new-people-joining-gist-lab/: /news/new-people-joining-gist-lab/
+/geoinformatics-research-days-2024/: /news/geoinformatics-research-days-2024/
+/mobile-tartu-2024/: /news/mobile-tartu-2024/
+/prof-adam-dennett-ucl-visited-gist-lab-and-gave-a-geospa-talk/: /news/prof-adam-dennett-ucl-visited-gist-lab-and-gave-a-geospa-talk/
+/new-member-joining-dr-oleksandr-karasov/: /news/new-member-joining-dr-oleksandr-karasov/
+/prof-martin-tomko-university-of-melbourne-visited-gist-lab-and-gave-a-geospa-talk/: /news/prof-martin-tomko-university-of-melbourne-visited-gist-lab-and-gave-a-geospa-talk/
+/3830-2/: /news/mapico-workshop-i/
+/farewell-to-bryan-who-starts-a-new-job-in-galapagos-islands/: /news/farewell-to-bryan-who-starts-a-new-job-in-galapagos-islands/
+/new-publication-out-spatial-accessibility-and-transport-equity-in-finland/: /news/new-publication-out-spatial-accessibility-and-transport-equity-in-finland/
+/cesars-visit-to-isi-foundation-in-torino/: /news/cesars-visit-to-isi-foundation-in-torino/
+/geoportti-ri-was-funded-and-the-project-continues-2025-2029/: /news/geoportti-ri-was-funded-and-the-project-continues-2025-2029/
+/new-member-joining-seyed-hosseini/: /news/new-member-joining-seyed-hosseini/
+/new-project-funded-by-chist-era/: /news/new-project-funded-by-chist-era/
+/new-article-out-in-nature-communications-significant-proportion-of-worlds-rural-population-missing-from-global-estimates/: /news/new-article-out-in-nature-communications-significant-proportion-of-worlds-rural-population-missing-from-global-estimates/
+/new-paper-predicting-household-income-with-satellite-and-street-level-imagery/: /news/new-paper-predicting-household-income-with-satellite-and-street-level-imagery/
+/new-paper-participatory-mapping-for-unveiling-the-values-of-blue-spaces/: /news/new-paper-participatory-mapping-for-unveiling-the-values-of-blue-spaces/
+/new-paper-when-proximity-falls-short-inequalities-in-commuting-and-accessibility-by-public-transport-in-santiago-chile/: /news/new-paper-when-proximity-falls-short-inequalities-in-commuting-and-accessibility-by-public-transport-in-santiago-chile/
+/josias-lang-ritter-receives-the-school-of-engineering-publication-award/: /news/josias-lang-ritter-receives-the-school-of-engineering-publication-award/
+/new-paper-making-waves-a-conceptual-framework-exploring-how-large-language-model-based-multi-agent-systems-could-reshape-water-engineering/: /news/new-paper-making-waves-a-conceptual-framework-exploring-how-large-language-model-based-multi-agent-systems-could-reshape-water-engineering/
+/new-paper-heat-stress-prediction-in-glasgow-integration-of-historical-data-with-machine-learning-models/: /news/new-paper-heat-stress-prediction-in-glasgow-integration-of-historical-data-with-machine-learning-models/
+/christian-koski-successfully-defends-his-doctoral-thesis/: /news/christian-koski-successfully-defends-his-doctoral-thesis/
+/introducing-geoaquacrop-regional-crop-modelling-made-accessible/: /news/introducing-geoaquacrop-regional-crop-modelling-made-accessible/
+
+# Events
+/rushmore_event/geospatial-challenge-camp-2025/: /events/geospatial-challenge-camp-2025/
+/rushmore_event/lbs-2025-conference-at-otaniemi/: /events/lbs-2025-conference-at-otaniemi/
+/rushmore_event/new-course-geospatial-challenge-camp-2023/: /events/new-course-geospatial-challenge-camp-2023/
+/rushmore_event/otesama-2023-workshop-at-giscience-conference/: /events/otesama-2023-workshop-at-giscience-conference/
+
+# News categories
+/category/data/: /news/
+/category/mapico/: /news/
+/category/msc-thesis/: /news/
+/category/news/: /news/
+/category/phd-dissertation/: /news/
+/category/research/: /news/
+/category/software/: /news/
+/category/thesis/: /news/
+/category/uncategorized/: /news/

@@ -1,0 +1,60 @@
+# Site-wide settings: lab name, main menu and footer.
+# Links starting with "/" point to pages of this site.
+
+name: GIST Lab
+fullName: GIScience for Sustainability Transformations
+description: >-
+  GIScience for Sustainability Transformations (GIST) Lab advances research,
+  teaching and open-source scientific software related to sustainable
+  development.
+
+affiliation: Department of Built Environment, Aalto University
+address: Otakaari 4, 02150 Espoo, Finland
+copyright: GIST Lab, Aalto University
+
+# Alt text of the university logo shown before the lab logo in the header and footer.
+universityLogoAlt: Aalto University
+
+menu:
+  - label: People
+    href: /people/
+  - label: Research
+    href: /research/
+    children:
+      - label: MAPICO
+        href: /research/mapico/
+      - label: RECIPRO-GIS
+        href: /research/recipro/
+      - label: Geo-R2LLM
+        href: /research/geo-r2llm/
+      - label: Geoportti RI
+        href: /research/geoportti-ri/
+      - label: Location Innovation Hub
+        href: /research/location-innovation-hub/
+      - label: Digital Waters
+        href: /research/digital-waters/
+      - label: DDMA Workshops
+        href: /research/ddma-workshops/
+  - label: Publications
+    href: /publications/
+  - label: News
+    href: /news/
+  - label: Teaching
+    href: /teaching/
+  - label: Events
+    href: /events/
+  - label: Software
+    href: /software/
+  - label: Data
+    href: /data/
+
+# Short interface texts: skip link, menu button, theme switch, submenu button.
+labels:
+  skipToContent: Skip to content
+  menu: Menu
+  themeToggle: Switch between light and dark theme
+  submenu: pages
+
+footerLinks:
+  - label: GitHub
+    href: https://github.com/AaltoGIS

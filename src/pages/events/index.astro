@@ -1,0 +1,41 @@
+---
+import { getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import EventItem from "../../components/EventItem.astro";
+import { pageLabel } from "../../lib/labels";
+import { getEvents } from "../../lib/events";
+
+const page = await getEntry("pages", "events");
+if (!page) throw new Error("content/pages/events.md is missing");
+const { Content } = await render(page);
+const { upcoming, past } = await getEvents();
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <section class="section page-intro">
+    <div class="container">
+      <h1>{page.data.title}</h1>
+      <div class="prose prose--lead"><Content /></div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2>{pageLabel(page, "upcoming")}</h2>
+      {upcoming.length > 0 ? (
+        <div class="event-list">{upcoming.map((event) => <EventItem event={event} />)}</div>
+      ) : (
+        <p class="muted">{pageLabel(page, "none")}</p>
+      )}
+    </div>
+  </section>
+
+  {past.length > 0 && (
+    <section class="section section--tight">
+      <div class="container">
+        <h2>{pageLabel(page, "past")}</h2>
+        <div class="event-list">{past.map((event) => <EventItem event={event} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

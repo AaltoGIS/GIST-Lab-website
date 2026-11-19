@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { formatDateRange, isoDay } from "../../lib/dates";
+import { excerpt } from "../../lib/excerpt.mjs";
+import { pageLabel } from "../../lib/labels";
+import type { LabEvent } from "../../lib/events";
+import { withBase } from "../../lib/paths";
+
+export async function getStaticPaths() {
+  const events = await getCollection("events");
+  return events.map((event) => ({ params: { slug: event.id }, props: { event } }));
+}
+
+interface Props {
+  event: LabEvent;
+}
+
+const { event } = Astro.props;
+const { data } = event;
+const page = await getEntry("pages", "events");
+if (!page) throw new Error("content/pages/events.md is missing");
+const { Content } = await render(event);
+---
+
+<Base title={data.title} description={excerpt(event.body)} image={data.image}>
+  <article class="section post">
+    <div class="container post__inner">
+      <header class="post__header">
+        <p class="eyebrow"><a href={withBase("/events/")}>{page.data.title}</a></p>
+        <h1>{data.title}</h1>
+        <p class="post__meta">
+          {data.date && <time datetime={isoDay(data.date)}>{formatDateRange(data.date, data.endDate)}</time>}
+          {data.date && data.location && " · "}
+          {data.location}
+        </p>
+      </header>
+      {data.image && (
+        <Image class="post__image post__image--contain" src={data.image} alt={data.imageAlt ?? ""} widths={[640, 960, 1440]} sizes="(min-width: 48rem) 46rem, 100vw" loading="eager" />
+      )}
+      <div class="prose post__body"><Content /></div>
+      {data.link && <p><a class="button button--primary" href={data.link}>{pageLabel(page, "website")}</a></p>}
+    </div>
+  </article>
+</Base>

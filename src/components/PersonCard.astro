@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import { withBase } from "../lib/paths";
+import { displayName, type Person } from "../lib/people";
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+const { data } = person;
+const initials = data.name
+  .split(/\s+/)
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join("");
+// The zoom scales about the crop point, so `photoPosition` still picks the part that shows;
+// the image sizes grow with it so the browser fetches a sharp enough file.
+const zoom = data.photoZoom;
+const scaled = (value: number) => Math.round(value * zoom * 10) / 10;
+const photoStyle = `object-position: ${data.photoPosition}; transform-origin: ${data.photoPosition}; scale: ${zoom}`;
+const photoSizes = `(min-width: 72rem) ${scaled(16)}rem, (min-width: 32rem) ${scaled(45)}vw, ${scaled(90)}vw`;
+---
+
+<a class="person-card" href={withBase(`/people/${person.id}/`)}>
+  <div class="person-card__photo">
+    {data.photo ? (
+      <Image src={data.photo} alt="" widths={[320, 640, 960]} sizes={photoSizes} style={photoStyle} />
+    ) : (
+      <span class="person-card__initials" aria-hidden="true">{initials}</span>
+    )}
+  </div>
+  <h3 class="person-card__name">{displayName(person)}</h3>
+  <p class="person-card__role">{data.role}</p>
+</a>

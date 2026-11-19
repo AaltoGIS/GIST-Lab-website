@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/paths";
+
+export async function getStaticPaths() {
+  // Sections with their own routes; a stand-alone page cannot take these ids.
+  const reserved = new Set(["404", "people", "news", "events", "research", "publications"]);
+  const pages = await getCollection("pages", (page) => page.data.standalone);
+  for (const page of pages) {
+    if (reserved.has(page.id)) {
+      throw new Error(`content/pages/${page.id}.md: a stand-alone page cannot use the id "${page.id}"`);
+    }
+  }
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+}
+
+interface Props {
+  page: CollectionEntry<"pages">;
+}
+
+const { page } = Astro.props;
+const { data } = page;
+const { Content } = await render(page);
+---
+
+<Base title={data.title} description={data.description}>
+  <section class="section page-intro">
+    <div class="container">
+      <h1>{data.title}</h1>
+      <div class="prose prose--lead"><Content /></div>
+    </div>
+  </section>
+
+  {data.cards.length > 0 && (
+    <section class="section section--tight">
+      <div class="container card-list">
+        {data.cards.map((card) => (
+          <article class="info-card">
+            {card.image && (
+              <div class="info-card__media">
+                <Image src={card.image} alt={card.imageAlt ?? ""} widths={[320, 640]} sizes="(min-width: 48rem) 20rem, 100vw" />
+              </div>
+            )}
+            <div class="info-card__body">
+              <h2 class="info-card__title">{card.title}</h2>
+              {card.meta && <p class="info-card__meta">{card.meta}</p>}
+              {card.text && <p>{card.text}</p>}
+              {card.links.length > 0 && (
+                <p class="info-card__links">
+                  {card.links.map((link) => <a href={withBase(link.href)}>{link.label} →</a>)}
+                </p>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>

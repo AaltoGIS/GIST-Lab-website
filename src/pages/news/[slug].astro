@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import { getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { formatDate, isoDay } from "../../lib/dates";
+import { pageLabel } from "../../lib/labels";
+import { getNews, postSummary, type NewsPost } from "../../lib/news";
+import { withBase } from "../../lib/paths";
+
+export async function getStaticPaths() {
+  const posts = await getNews();
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[index - 1], older: posts[index + 1] }
+  }));
+}
+
+interface Props {
+  post: NewsPost;
+  newer?: NewsPost;
+  older?: NewsPost;
+}
+
+const { post, newer, older } = Astro.props;
+const { data } = post;
+const page = await getEntry("pages", "news");
+if (!page) throw new Error("content/pages/news.md is missing");
+const { Content } = await render(post);
+---
+
+<Base title={data.title} description={postSummary(post)} image={data.image}>
+  <article class="section post">
+    <div class="container post__inner">
+      <header class="post__header">
+        <p class="eyebrow"><a href={withBase("/news/")}>{page.data.title}</a></p>
+        <h1>{data.title}</h1>
+        <p class="post__meta">
+          <time datetime={isoDay(data.date)}>{formatDate(data.date)}</time>
+          {data.author && <span> · {pageLabel(page, "by")} {data.author}</span>}
+        </p>
+      </header>
+      {data.image && (
+        <Image class="post__image" src={data.image} alt={data.imageAlt ?? ""} widths={[640, 960, 1440]} sizes="(min-width: 48rem) 46rem, 100vw" loading="eager" />
+      )}
+      <div class="prose post__body"><Content /></div>
+
+      {(newer || older) && (
+        <nav class="post-nav" aria-label={page.data.title}>
+          {older ? (
+            <a class="post-nav__link" href={withBase(`/news/${older.id}/`)}>
+              <span class="post-nav__label">← {pageLabel(page, "previous")}</span>
+              <span class="post-nav__title">{older.data.title}</span>
+            </a>
+          ) : <span />}
+          {newer && (
+            <a class="post-nav__link post-nav__link--next" href={withBase(`/news/${newer.id}/`)}>
+              <span class="post-nav__label">{pageLabel(page, "next")} →</span>
+              <span class="post-nav__title">{newer.data.title}</span>
+            </a>
+          )}
+        </nav>
+      )}
+    </div>
+  </article>
+</Base>

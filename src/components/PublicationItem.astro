@@ -1,0 +1,32 @@
+---
+import { getEntry, render } from "astro:content";
+import { pageLabel } from "../lib/labels";
+import { publicationHref, type Publication } from "../lib/publications";
+
+interface Props {
+  publication: Publication;
+  /** Show the abstract (the file body) behind a toggle. */
+  showAbstract?: boolean;
+}
+
+const { publication, showAbstract = false } = Astro.props;
+const { data } = publication;
+const page = await getEntry("pages", "publications");
+if (!page) throw new Error("content/pages/publications.md is missing");
+const hasAbstract = showAbstract && Boolean(publication.body?.trim());
+const { Content } = hasAbstract ? await render(publication) : { Content: undefined };
+---
+
+<li class="publication" data-year={data.year} data-projects={JSON.stringify(data.projects.map((ref) => ref.id))} data-people={JSON.stringify(data.people.map((ref) => ref.id))}>
+  <a class="publication__title" href={publicationHref(publication)}>{data.title}</a>
+  <p class="publication__meta">
+    {data.authors} ({data.year}). <em>{data.venue}</em>.
+    {data.openAccess && <span class="badge">{pageLabel(page, "openAccess")}</span>}
+  </p>
+  {Content && (
+    <details class="publication__abstract">
+      <summary>{pageLabel(page, "abstract")}</summary>
+      <div class="prose"><Content /></div>
+    </details>
+  )}
+</li>

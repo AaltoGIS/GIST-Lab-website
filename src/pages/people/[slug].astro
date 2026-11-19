@@ -1,0 +1,113 @@
+---
+import { Image } from "astro:assets";
+import { getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { pageLabel } from "../../lib/labels";
+import { withBase } from "../../lib/paths";
+import { displayName, getPeople, photoAlt, type Person } from "../../lib/people";
+import { getProjects, projectHref, projectName } from "../../lib/projects";
+import { getPublications } from "../../lib/publications";
+import PublicationItem from "../../components/PublicationItem.astro";
+import { site } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const people = await getPeople();
+  return people
+    .filter((person) => person.data.status === "current")
+    .map((person) => ({ params: { slug: person.id }, props: { person } }));
+}
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+const { data } = person;
+const page = await getEntry("pages", "people");
+if (!page) throw new Error("content/pages/people.md is missing");
+const { Content } = await render(person);
+const name = displayName(person);
+const projects = (await getProjects()).filter((project) => project.data.team.some((ref) => ref.id === person.id));
+const publications = (await getPublications()).filter((publication) => publication.data.people.some((ref) => ref.id === person.id));
+const hasContact = Boolean(data.email || data.emailText || data.links.length > 0);
+const hasAside = Boolean(data.photo || hasContact);
+---
+
+<Base title={name} description={`${name}, ${data.role}, ${site.name}`} image={data.photo}>
+  <section class="section">
+    <div class:list={["container", "profile", { "profile--single": !hasAside }]}>
+      {hasAside && (
+      <aside class="profile__aside">
+        {data.photo && (
+          <Image class="profile__photo" src={data.photo} alt={photoAlt(person)} widths={[320, 640]} sizes="(min-width: 48rem) 20rem, 100vw" style={`object-position: ${data.photoPosition}`} />
+        )}
+        {hasContact && (
+          <dl class="profile__contact">
+            {(data.email || data.emailText) && (
+              <>
+                <dt>{pageLabel(page, "email")}</dt>
+                <dd>{data.email ? <a href={`mailto:${data.email}`}>{data.email}</a> : data.emailText}</dd>
+              </>
+            )}
+            {data.links.map((link) => (
+              <>
+                <dt>{link.label}</dt>
+                <dd><a href={withBase(link.href)}>{link.href.replace(/^https?:\/\//, "").replace(/\/$/, "")}</a></dd>
+              </>
+            ))}
+          </dl>
+        )}
+      </aside>
+      )}
+
+      <div class="profile__main">
+        <p class="eyebrow"><a href={withBase("/people/")}>{page.data.title}</a></p>
+        <h1>{name}</h1>
+        <p class="profile__role">{data.role}</p>
+        <p class="profile__affiliation">{data.affiliation ?? site.affiliation}</p>
+        <div class="prose"><Content /></div>
+
+        {projects.length > 0 && (
+          <section class="profile__section">
+            <h2>{pageLabel(page, "projects")}</h2>
+            <ul class="profile__projects">
+              {projects.map((project) => {
+                const href = projectHref(project);
+                return (
+                  <li>
+                    {href ? <a href={withBase(href)}>{projectName(project)}</a> : projectName(project)}
+                    {project.data.years && <span class="muted"> · {project.data.years}</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
+
+        {publications.length > 0 && (
+          <section class="profile__section">
+            <h2>{pageLabel(page, "publications")}</h2>
+            <ol class="publication-list">
+              {publications.map((publication) => <PublicationItem publication={publication} />)}
+            </ol>
+          </section>
+        )}
+
+        {data.education.length > 0 && (
+          <section class="profile__section">
+            <h2>{pageLabel(page, "education")}</h2>
+            <ol class="timeline">
+              {data.education.map((item) => (
+                <li>
+                  <span class="timeline__year">{item.year}</span>
+                  <strong>{item.degree}</strong>
+                  <span class="timeline__detail">{item.institution}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>
