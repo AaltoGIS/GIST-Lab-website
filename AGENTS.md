@@ -217,8 +217,9 @@ appear in the menu.
 - The logo green `--brand` (`#92c093`) is for decoration and dark mode. Text,
   links and buttons on light backgrounds use `--accent` and `--link`, which
   meet WCAG AA contrast.
-- Headings use Space Grotesk, body text Inter. Both are self-hosted; the site
-  makes no requests to font services.
+- Headings use Montserrat (the lettering of the lab logo), body text Open
+  Sans, as on the old site. Both are self-hosted; the site makes no requests
+  to font services.
 - Check changed pages in both themes and at phone width (about 375 px).
 
 ## Domain switch

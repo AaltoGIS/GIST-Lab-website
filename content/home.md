@@ -3,8 +3,7 @@ title: GIST Lab
 description: GIScience for Sustainability Transformations (GIST) Lab advances research, teaching and open-source scientific software related to sustainable development.
 hero:
   title: GIST Lab
-  subtitle: GIScience for Sustainability Transformations
-  text: GIST Lab advances research, teaching and open-source scientific software related to sustainable development.
+  text: GIScience for Sustainability Transformations (GIST) Lab advances research, teaching and open-source scientific software related to sustainable development.
   image: ./images/world-public-transport-osm.jpg
   imageAlt: World map of public transport routes in OpenStreetMap, glowing orange and white on a dark background, densest in Europe.
   imagePosition: 45% 30%
