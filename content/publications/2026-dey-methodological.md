@@ -2,6 +2,7 @@
 title: "A Methodological Framework for Microscale Mapping of Carbon Emissions from Daily Multimodal Travel: Application to the Helsinki Metropolitan Area"
 authors: "Dey, S., C. Marin Flores & H. Tenkanen"
 year: 2026
+date: 2026-02-19
 venue: "Sustainable Cities & Society 140(1)"
 doi: 10.1016/j.scs.2026.107226
 people:

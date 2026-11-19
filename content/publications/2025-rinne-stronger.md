@@ -2,6 +2,7 @@
 title: "Stronger together: integrating geospatial data to understand human outdoor recreation"
 authors: "Rinne, T., H. Tenkanen & A. Poom"
 year: 2025
+date: 2025-05-05
 venue: "Scandinavian Journal of Hospitality and Tourism 25, 366–398"
 doi: 10.1080/15022250.2025.2484715
 people:

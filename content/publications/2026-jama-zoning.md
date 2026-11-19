@@ -2,6 +2,7 @@
 title: "Zoning for Zero: Climate impacts of zoning plans in a Nordic context"
 authors: "Jama, T."
 year: 2026
+date: 2026-01-01
 venue: "Aalto University publication series Doctoral Theses 129/2026 (doctoral thesis)"
 url: https://aaltodoc.aalto.fi/handle/123456789/144239
 openAccess: true

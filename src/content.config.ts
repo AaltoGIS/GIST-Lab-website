@@ -206,6 +206,8 @@ const publications = defineCollection({
       title: z.string().min(1),
       authors: z.string().min(1),
       year: z.number().int().min(1900).max(2100),
+      // Publication date from the record; orders the entries within a year.
+      date: calendarDate.optional(),
       venue: z.string().min(1),
       // Crossref's recommended DOI pattern; it keeps the DOI usable as a URL path as is.
       doi: z

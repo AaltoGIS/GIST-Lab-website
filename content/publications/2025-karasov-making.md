@@ -2,6 +2,7 @@
 title: "Making Cultural Ecosystem Services Truly Cultural: Mapping Outdoor Experiences in Ukraine with Telegram"
 authors: "Karasov, O., T. Rinne, O. Järv & H. Tenkanen"
 year: 2025
+date: 2025-07-04
 venue: "Proceedings of the 19th International Conference on Location Based Services, 112–117"
 doi: 10.5281/zenodo.15352408
 people:

@@ -2,6 +2,7 @@
 title: "Spatial accessibility and transport inequity in Finland: Open source models and perspectives from planning practice"
 authors: "Pönkänen, M., H. Tenkanen & M. Mladenovic"
 year: 2025
+date: 2024-11-22
 venue: "Computers, Environment and Urban Systems 116"
 doi: 10.1016/j.compenvurbsys.2024.102218
 openAccess: true

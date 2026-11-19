@@ -2,6 +2,7 @@
 title: "The Impact of Land-Use Planning on Lifestyle Carbon Footprints"
 authors: "Jama, T., J. Heinonen & H. Tenkanen"
 year: 2026
+date: 2026-03-20
 venue: "Environments 13(3), 173"
 doi: 10.3390/environments13030173
 people:

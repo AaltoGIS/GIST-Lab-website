@@ -2,6 +2,7 @@
 title: "Cyclists' route preferences in the electrification era: A case study in Zurich, Switzerland"
 authors: "Latvala, J., C. Marin-Flores, S. Vosough, B. Vallejo, H. Tenkanen, C. Roncoli, A. Meister & K. Axhausen"
 year: 2026
+date: 2026-01-01
 venue: "Transportation Research Procedia 95, 784–791"
 doi: 10.1016/j.trpro.2026.02.099
 people:

@@ -2,6 +2,7 @@
 title: "Electrification fails to reconcile urban transport with 2030 climate targets"
 authors: "Marin-Flores, C., S. Dey, X. Zhang, E. Arcaute & H. Tenkanen"
 year: 2026
+date: 2026-10-13
 venue: "Zenodo (preprint)"
 doi: 10.5281/zenodo.23342364
 openAccess: true

@@ -2,6 +2,7 @@
 title: "Trust in artificial intelligence to extract geospatial features for topographic databases"
 authors: "Koski, C., P. Kettunen, H. Tenkanen & J. Oksanen"
 year: 2026
+date: 2026-08-17
 venue: "International Journal of Geographical Information Science 1–30"
 doi: 10.1080/13658816.2026.2716279
 people:

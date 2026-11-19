@@ -2,6 +2,7 @@
 title: "Heat Stress Prediction in Glasgow: Integration of Historical Data With Machine Learning Models"
 authors: "Modjrian, N., R. Emmanuel & H. Tenkanen"
 year: 2026
+date: 2026-04-01
 venue: "Transactions in GIS 30(2), e70265"
 doi: 10.1111/tgis.70265
 people:

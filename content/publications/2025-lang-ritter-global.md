@@ -2,6 +2,7 @@
 title: "Global gridded population datasets systematically underrepresent rural population"
 authors: "Láng-Ritter, J., M. Keskinen & H. Tenkanen"
 year: 2025
+date: 2025-03-18
 venue: "Nature Communications 16, 2170"
 doi: 10.1038/s41467-025-56906-7
 openAccess: true

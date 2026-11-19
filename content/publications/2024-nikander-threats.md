@@ -2,6 +2,7 @@
 title: "Threats related to open geospatial data in the uncertain geopolitical environment"
 authors: "Nikander, J., T. Jama & H. Tenkanen"
 year: 2024
+date: 2024-06-20
 venue: "The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences 48, 121–126"
 doi: 10.5194/isprs-archives-xlviii-4-w12-2024-121-2024
 openAccess: true

@@ -178,8 +178,9 @@ To add a project to the Research submenu, add it to `menu` in
 ## Publications
 
 A publication is `content/publications/<year>-<first-author>-<word>.md`. The
-Publications page lists them by year with filters for year, project and lab
-member; profile and project pages list the matching ones. The body is the
+Publications page lists them by year, newest first (by `date` within a year),
+with filters for year, project and lab member; profile and project pages list
+the matching ones. The body is the
 abstract (optional; shown behind a toggle).
 
 ```yaml
@@ -187,6 +188,7 @@ abstract (optional; shown behind a toggle).
 title: "Global gridded population datasets systematically underrepresent rural population"
 authors: "Láng-Ritter, J., M. Keskinen & H. Tenkanen"
 year: 2025
+date: 2025-03-18                 # optional; orders entries within a year, newest first
 venue: "Nature Communications 16, 2170"
 doi: 10.1038/s41467-025-56906-7   # without https://doi.org/; or give `url` instead
 openAccess: true                 # optional; shows an Open access badge

@@ -2,6 +2,7 @@
 title: "Accessibility: Can less be better?"
 authors: "Willberg, E., H. Tenkanen, B. van Wee & T. Toivonen"
 year: 2026
+date: 2026-07-31
 venue: "Transportation Research Interdisciplinary Perspectives, 102160"
 doi: 10.1016/j.trip.2026.102160
 people:

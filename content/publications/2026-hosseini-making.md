@@ -2,6 +2,7 @@
 title: "Making waves: A conceptual framework exploring how large language model-based multi-agent systems could reshape water engineering"
 authors: "Hosseini, S.H., B. Zolghadr-Asli, H. Tenkanen, K. Madani, M.A. Matin, I. Demir, A. Ostfeld, V.P. Singh & D. Savic"
 year: 2026
+date: 2025-12-12
 venue: "Water Research 291, 125157"
 doi: 10.1016/j.watres.2025.125157
 people:

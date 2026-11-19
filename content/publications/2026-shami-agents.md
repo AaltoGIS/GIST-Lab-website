@@ -2,6 +2,7 @@
 title: "When Agents Get Lost: Dissecting Failure Modes in Graph-Based Navigation Instruction Evaluation"
 authors: "Shami, F., K. Abedini, S. H. Hosseini, N. Van de Weghe & H. Tenkanen"
 year: 2026
+date: 2026-05-16
 venue: "Zenodo"
 doi: 10.5281/zenodo.20232765
 openAccess: true
