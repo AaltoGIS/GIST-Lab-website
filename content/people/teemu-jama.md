@@ -6,6 +6,7 @@ status: current
 order: 6
 affiliation: "Department of Architecture / Department of Built Environment, Aalto University"
 photo: "./images/teemu-jama.jpg"
+photoPosition: 50% 25%
 emailText: firstname.lastname@aalto.fi
 ---
 
