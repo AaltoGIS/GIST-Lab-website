@@ -14,6 +14,7 @@ const siteSchema = z.object({
   affiliation: z.string().min(1),
   address: z.string().min(1),
   copyright: z.string().min(1),
+  universityLogoAlt: z.string().min(1),
   menu: z.array(menuItem).min(1),
   footerLinks: z.array(linkSchema).default([])
 });
