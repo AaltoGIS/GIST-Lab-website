@@ -18,7 +18,7 @@ const { data } = post;
 <article class="news-card">
   <a class="news-card__media" href={withBase(`/news/${post.id}/`)} tabindex="-1" aria-hidden="true">
     {data.image ? (
-      <Image src={data.image} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 100vw" />
+      <Image class="news-card__image" src={data.image} alt="" widths={[400, 800]} sizes="(min-width: 64rem) 22rem, (min-width: 40rem) 45vw, 100vw" style={`object-position: ${data.imagePosition}`} />
     ) : (
       <img class="news-card__placeholder" src={withBase("/gist-mark.svg")} alt="" width="150" height="100" />
     )}
