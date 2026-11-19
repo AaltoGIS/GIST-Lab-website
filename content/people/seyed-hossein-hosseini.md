@@ -6,7 +6,8 @@ status: current
 order: 9
 affiliation: "GIST Lab, Department of Built Environment, Aalto University"
 photo: "./images/seyed-hossein-hosseini.jpg"
-photoPosition: 50% 0%
+photoPosition: 70% 0%
+photoZoom: 1.3
 email: "seyed.h.hosseini@aalto.fi"
 ---
 
