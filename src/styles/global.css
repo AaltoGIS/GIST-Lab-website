@@ -4,6 +4,7 @@
   color-scheme: light dark;
 
   --brand: #92c093;
+  --brand-deep: #2f6b3a;
   --bg: light-dark(#fafbf9, #0e1310);
   --surface: light-dark(#ffffff, #151c17);
   --surface-2: light-dark(#eff4ee, #1c251f);
@@ -14,10 +15,9 @@
   --link-hover: light-dark(#1f4c28, #c9e6ca);
   --accent: light-dark(#2f6b3a, #92c093);
   --on-accent: light-dark(#ffffff, #0e1310);
-  --glow: #f4a259;
 
-  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-heading: "Space Grotesk Variable", var(--font-body);
+  --font-body: "Open Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Montserrat Variable", var(--font-body);
 
   --container: 72rem;
   --gutter: clamp(1rem, 4vw, 2rem);
@@ -69,7 +69,6 @@ h3,
 h4 {
   font-family: var(--font-heading);
   line-height: 1.2;
-  letter-spacing: -0.015em;
   margin: 0 0 0.6em;
 }
 
@@ -108,6 +107,13 @@ img {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* Over the banner image a white outline with a dark ring stays visible on any colour. */
+.hero :focus-visible,
+.site-header--overlay:not(.is-scrolled) :focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 5px rgb(14 19 16 / 0.85);
 }
 
 .container {
@@ -271,6 +277,7 @@ img {
 
 .site-nav {
   margin-left: auto;
+  font-family: var(--font-heading);
 }
 
 .site-nav__list,
@@ -488,7 +495,7 @@ img {
   align-items: flex-end;
   min-height: clamp(30rem, 82vh, 46rem);
   margin-top: calc(-1 * var(--header-height));
-  padding: calc(var(--header-height) + 3rem) 0 4.5rem;
+  padding: calc(var(--header-height) + 3rem) 0 3.5rem;
   overflow: hidden;
   background: #222;
   color: #fff;
@@ -513,49 +520,50 @@ img {
   z-index: -1;
   background:
     linear-gradient(to bottom, rgb(10 14 11 / 0.65), transparent 30%),
-    linear-gradient(to top, rgb(10 14 11 / 0.85), rgb(10 14 11 / 0.15) 65%);
+    linear-gradient(to top, rgb(10 14 11 / 0.6), transparent 35%);
 }
 
-.hero__content {
-  max-width: var(--container);
+/* Text box over the map, as on the old site; the banner is dark in both themes. */
+.hero__box {
+  width: min(44rem, 100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 4vw, 2.75rem);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--brand-deep) 88%, transparent);
+  text-align: center;
 }
 
 .hero__title {
-  margin-bottom: 0.15em;
-  font-size: clamp(3rem, 9vw, 6rem);
+  margin-bottom: 0.4em;
+  font-size: clamp(2rem, 6vw, 3.25rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-
-.hero__subtitle {
-  margin-bottom: 1rem;
-  color: var(--glow);
-  font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
-  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
 }
 
 .hero__text {
-  max-width: 38rem;
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  color: rgb(255 255 255 / 0.88);
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-weight: 600;
+  line-height: 1.6;
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 }
 
 .hero .button--primary {
-  background: var(--brand);
-  color: #0e1310;
+  background: #fff;
+  color: var(--brand-deep);
 }
 
 .hero .button--primary:hover {
-  background: #b5d8b6;
+  background: color-mix(in srgb, var(--brand) 30%, #fff);
 }
 
 .hero__credit {
