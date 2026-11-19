@@ -2,7 +2,7 @@
 name: Josias Láng-Ritter
 prefix: Dr.
 role: Postdoctoral researcher
-group: postdoc
+status: current
 order: 3
 photo: "./images/josias-lang-ritter.jpg"
 emailText: firstname.lastname@aalto.fi

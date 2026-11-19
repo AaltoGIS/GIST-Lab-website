@@ -2,11 +2,7 @@
 title: People
 description: Current and former members of GIST Lab at the Department of Built Environment, Aalto University.
 labels:
-  pi: Group leader
-  staff: Senior staff
-  postdoc: Postdoctoral researchers
-  doctoral: Doctoral researchers
-  visiting: Visiting researchers
+  current: Current lab members
   former: Former lab members
   education: Education
   email: Email

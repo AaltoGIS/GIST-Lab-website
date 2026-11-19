@@ -2,7 +2,7 @@
 name: Christian Koski
 prefix: MSc
 role: Doctoral researcher
-group: doctoral
+status: current
 order: 10
 affiliation: "Finnish Geospatial Research Institute (FGI) / GIST Lab, Aalto University"
 photo: "./images/christian-koski.jpg"
