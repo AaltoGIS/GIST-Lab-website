@@ -1,6 +1,6 @@
 ---
 name: Ngoc Chau
 prefix: MSc
-group: former
+status: former
 years: 2023
 ---

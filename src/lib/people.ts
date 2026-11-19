@@ -2,11 +2,6 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type Person = CollectionEntry<"people">;
 
-export type Group = Person["data"]["group"];
-
-/** Display order of the groups on the People page. */
-export const GROUPS: Group[] = ["pi", "staff", "postdoc", "doctoral", "visiting", "former"];
-
 /** Name with its prefix, e.g. "Dr. Jane Doe". */
 export function displayName(person: Person): string {
   return [person.data.prefix, person.data.name].filter(Boolean).join(" ");
@@ -23,15 +18,15 @@ export function photoAlt(person: Person): string {
 }
 
 /**
- * All people sorted for display: by group (in `GROUPS` order), current
- * members by `order`, former members by most recent years, then by name.
+ * All people sorted for display: current members first, by `order`; former
+ * members by most recent years; then by name.
  */
 export async function getPeople(): Promise<Person[]> {
   const people = await getCollection("people");
   return people.sort((a, b) => {
-    const byGroup = GROUPS.indexOf(a.data.group) - GROUPS.indexOf(b.data.group);
-    if (byGroup) return byGroup;
-    const byOrder = a.data.group === "former" ? endYear(b) - endYear(a) : a.data.order - b.data.order;
+    const byStatus = Number(a.data.status === "former") - Number(b.data.status === "former");
+    if (byStatus) return byStatus;
+    const byOrder = a.data.status === "former" ? endYear(b) - endYear(a) : a.data.order - b.data.order;
     return byOrder || a.data.name.localeCompare(b.data.name, "en");
   });
 }
