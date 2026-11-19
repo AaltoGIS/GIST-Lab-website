@@ -1,0 +1,22 @@
+---
+import { Image } from "astro:assets";
+import { site } from "../lib/site";
+import aaltoLogo from "../../content/images/aalto-logo.png";
+import aaltoLogoOnDark from "../../content/images/aalto-logo-on-dark.png";
+import gistLogo from "../../content/images/gist-logo.png";
+import gistLogoOnDark from "../../content/images/gist-logo-on-dark.png";
+
+// University logo, then the lab logo, as on the old site. Each has a version with white
+// lettering; global.css shows the one that suits the background. Heights are in pixels.
+const logos = [
+  { alt: site.universityLogoAlt, height: 37, onLight: aaltoLogo, onDark: aaltoLogoOnDark },
+  { alt: site.name, height: 48, onLight: gistLogo, onDark: gistLogoOnDark }
+];
+---
+
+{logos.map((logo) => (
+  <>
+    <Image class="brand__logo brand__logo--on-light" src={logo.onLight} alt={logo.alt} height={logo.height} densities={[1, 2]} loading="eager" />
+    <Image class="brand__logo brand__logo--on-dark" src={logo.onDark} alt={logo.alt} height={logo.height} densities={[1, 2]} loading="eager" />
+  </>
+))}
