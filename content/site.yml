@@ -12,6 +12,9 @@ affiliation: Department of Built Environment, Aalto University
 address: Otakaari 4, 02150 Espoo, Finland
 copyright: GIST Lab, Aalto University
 
+# Alt text of the university logo shown before the lab logo in the header and footer.
+universityLogoAlt: Aalto University
+
 menu:
   - label: People
     href: /people/
