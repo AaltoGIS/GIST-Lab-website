@@ -113,6 +113,7 @@ date: 2026-11-18
 author: Jane Doe                  # optional
 image: ./images/2026-11-18-figure.jpg   # optional, shown on the card and the post
 imageAlt: Map of commuting emissions in Helsinki   # required with `image`: describe what it shows
+imagePosition: 50% 20%            # optional, which part of the image shows on the card (default 50% 50%)
 summary: One or two sentences for the card.        # optional
 projects: [mapico]                # optional, research project ids
 ---

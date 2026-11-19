@@ -118,6 +118,7 @@ const news = defineCollection({
         author: z.string().min(1).optional(),
         image: image().optional(),
         imageAlt: altText.optional(),
+        imagePosition: z.string().default("50% 50%"),
         summary: z.string().min(1).optional(),
         projects: z.array(z.string().min(1)).default([])
       })

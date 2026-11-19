@@ -4,6 +4,7 @@ date: 2025-01-03
 author: Henrikki Tenkanen
 image: ./images/2025-01-03-Seyed_Hosseini.png
 imageAlt: "Portrait of Seyed Hossein Hosseini"
+imagePosition: 50% 30%
 ---
 
 We are happy to announce that we have a new team member joining the GIST Lab, MSc Seyed Hossein Hosseini! Welcome!
