@@ -4,7 +4,6 @@
   color-scheme: light dark;
 
   --brand: #92c093;
-  --brand-deep: #2f6b3a;
   --bg: light-dark(#fafbf9, #0e1310);
   --surface: light-dark(#ffffff, #151c17);
   --surface-2: light-dark(#eff4ee, #1c251f);
@@ -518,52 +517,66 @@ img {
   position: absolute;
   inset: 0;
   z-index: -1;
+  /* The text sits at the lower left: the shade darkens that corner and leaves the lights of
+     Europe and Asia bright. On narrower screens the text spans the width, so it comes from below. */
   background:
     linear-gradient(to bottom, rgb(10 14 11 / 0.65), transparent 30%),
+    linear-gradient(to right, rgb(10 14 11 / 0.88), rgb(10 14 11 / 0.6) 38%, transparent 68%),
     linear-gradient(to top, rgb(10 14 11 / 0.6), transparent 35%);
 }
 
-/* Text box over the map, as on the old site; the banner is dark in both themes. */
-.hero__box {
-  width: min(44rem, 100% - 2 * var(--gutter));
-  margin-inline: auto;
-  padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 4vw, 2.75rem);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--brand-deep) 88%, transparent);
-  text-align: center;
+@media (max-width: 68rem) {
+  .hero__shade {
+    background:
+      linear-gradient(to bottom, rgb(10 14 11 / 0.65), transparent 30%),
+      linear-gradient(to top, rgb(10 14 11 / 0.9), rgb(10 14 11 / 0.7) 45%, transparent 80%);
+  }
+}
+
+/* Text column at the lower left; the banner is dark in both themes. */
+.hero__content > * {
+  max-width: 36rem;
 }
 
 .hero__title {
-  margin-bottom: 0.4em;
-  font-size: clamp(2rem, 6vw, 3.25rem);
+  margin-bottom: 1rem;
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
   font-weight: 700;
-  letter-spacing: 0.04em;
   line-height: 1.1;
-  text-transform: uppercase;
+}
+
+.hero__title::before {
+  content: "";
+  display: block;
+  width: 2.75rem;
+  height: 4px;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+  background: var(--brand);
 }
 
 .hero__text {
   margin: 0;
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
-  font-weight: 600;
-  line-height: 1.6;
+  color: rgb(255 255 255 / 0.88);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.65;
+  text-shadow: 0 1px 10px rgb(10 14 11 / 0.7);
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 .hero .button--primary {
-  background: #fff;
-  color: var(--brand-deep);
+  background: var(--brand);
+  color: #0e1310;
 }
 
 .hero .button--primary:hover {
-  background: color-mix(in srgb, var(--brand) 30%, #fff);
+  background: color-mix(in srgb, var(--brand) 65%, #fff);
 }
 
 .hero__credit {
