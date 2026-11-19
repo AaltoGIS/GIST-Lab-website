@@ -90,6 +90,7 @@ const people = defineCollection({
         photo: image().optional(),
         photoAlt: altText.optional(),
         photoPosition: z.string().default("50% 10%"),
+        photoZoom: z.number().min(1).max(3).default(1),
         email: z
           .email()
           .refine((value) => !value.startsWith("firstname.lastname@"), "use `emailText` for an address pattern such as firstname.lastname@aalto.fi")
@@ -135,6 +136,7 @@ const news = defineCollection({
         author: z.string().min(1).optional(),
         image: image().optional(),
         imageAlt: altText.optional(),
+        imagePosition: z.string().default("50% 50%"),
         summary: z.string().min(1).optional(),
         projects: z.array(reference("projects")).default([])
       })

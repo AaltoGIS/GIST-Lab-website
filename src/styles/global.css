@@ -877,6 +877,7 @@ img {
 }
 
 .news-card__media {
+  position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 16 / 10;
@@ -884,7 +885,10 @@ img {
   background: var(--surface-2);
 }
 
-.news-card__media img {
+/* Pinned to the box, so the image is cropped (`imagePosition`) instead of growing the grid row. */
+.news-card__image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
