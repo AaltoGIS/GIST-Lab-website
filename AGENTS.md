@@ -71,6 +71,7 @@ affiliation: Department of X, Aalto University   # optional; default from site.y
 photo: ./images/jane-doe.jpg                     # optional
 photoAlt: Jane Doe in front of a bookshelf       # optional; default "Photo of <name>"
 photoPosition: 50% 30%      # optional, which part of the photo stays in a crop (default 50% 10%)
+photoZoom: 1.3              # optional, enlarges the photo on the People page card (default 1)
 email: jane.doe@aalto.fi    # optional, shown as a mail link
 emailText: firstname.lastname@aalto.fi   # optional, shown as plain text instead
 links:                      # optional
@@ -87,7 +88,8 @@ education:                  # optional, newest first
   file as above.
 - If a face is cut off or sits too low on the People page card, set
   `photoPosition`: the second value moves the crop from the top (`0%`) to
-  the bottom (`100%`) of the photo.
+  the bottom (`100%`) of the photo. If a face looks small next to the
+  others, set `photoZoom` (e.g. 1.3) and adjust `photoPosition` again.
 - When someone leaves: set `status: former`, add `years: 2023–2026` (a year
   or a range of four-digit years) and an
   optional one-line `note:` (e.g. their new position). Their profile page
