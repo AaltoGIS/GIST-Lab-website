@@ -2,7 +2,7 @@
 name: Oleksandr Karasov
 prefix: Dr.
 role: Postdoctoral researcher
-group: postdoc
+status: current
 order: 4
 photo: "./images/oleksandr-karasov.jpg"
 email: "oleksandr.karasov@aalto.fi"

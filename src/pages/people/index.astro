@@ -3,16 +3,14 @@ import { getEntry, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PersonCard from "../../components/PersonCard.astro";
 import { pageLabel } from "../../lib/labels";
-import { GROUPS, displayName, getPeople } from "../../lib/people";
+import { displayName, getPeople } from "../../lib/people";
 
 const page = await getEntry("pages", "people");
 if (!page) throw new Error("content/pages/people.md is missing");
 const { Content } = await render(page);
 const people = await getPeople();
-const groups = GROUPS.filter((group) => group !== "former")
-  .map((group) => ({ group, members: people.filter((person) => person.data.group === group) }))
-  .filter(({ members }) => members.length > 0);
-const former = people.filter((person) => person.data.group === "former");
+const current = people.filter((person) => person.data.status === "current");
+const former = people.filter((person) => person.data.status === "former");
 ---
 
 <Base title={page.data.title} description={page.data.description}>
@@ -23,18 +21,18 @@ const former = people.filter((person) => person.data.group === "former");
     </div>
   </section>
 
-  {groups.map(({ group, members }) => (
+  {current.length > 0 && (
     <section class="section section--tight">
       <div class="container">
-        <h2>{pageLabel(page, group)}</h2>
+        <h2>{pageLabel(page, "current")}</h2>
         <ul class="people-grid">
-          {members.map((person) => (
+          {current.map((person) => (
             <li><PersonCard person={person} /></li>
           ))}
         </ul>
       </div>
     </section>
-  ))}
+  )}
 
   {former.length > 0 && (
     <section class="section section--tight">

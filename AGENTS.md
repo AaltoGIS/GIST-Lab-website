@@ -60,21 +60,21 @@ Run `npm test`, `npm run check` and `npm run build` after every change.
 
 Each person is one file, `content/people/<first-last>.md`; the file name is
 the profile address (`/people/<first-last>/`). Current members get a profile
-page and a card under their group's heading on the People page (headings
-are `labels` in `content/pages/people.md`); former members appear in the
-one-line list. The body of the file is the biography (Markdown).
+page and a card on the People page, all in one grid ordered by `order`;
+former members appear in the one-line list. The body of the file is the
+biography (Markdown).
 
 ```yaml
 ---
 name: Jane Doe
 prefix: Dr.                 # optional, shown before the name
 role: Postdoctoral researcher
-group: postdoc              # pi | staff | postdoc | doctoral | visiting | former
-order: 6                    # optional, position within the group
+status: current             # current | former
+order: 6                    # optional, position on the People page
 affiliation: Department of X, Aalto University   # optional; default from site.yml
 photo: ./images/jane-doe.jpg                     # optional
 photoAlt: Jane Doe in front of a bookshelf       # optional; default "Photo of <name>"
-photoPosition: 50% 30%      # optional, which part of the photo stays in a crop
+photoPosition: 50% 30%      # optional, which part of the photo stays in a crop (default 50% 10%)
 email: jane.doe@aalto.fi    # optional, shown as a mail link
 emailText: firstname.lastname@aalto.fi   # optional, shown as plain text instead
 links:                      # optional
@@ -89,7 +89,7 @@ education:                  # optional, newest first
 
 - Add a person: save the photo in `content/people/images/` and create the
   file as above.
-- When someone leaves: set `group: former`, add `years: 2023–2026` (a year
+- When someone leaves: set `status: former`, add `years: 2023–2026` (a year
   or a range of four-digit years) and an
   optional one-line `note:` (e.g. their new position). Their profile page
   is removed and they move to the one-line list; `role`, `order`, `photo`

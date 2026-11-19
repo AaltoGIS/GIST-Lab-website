@@ -1,6 +1,6 @@
 ---
 name: Wenrui Dai
 prefix: MSc
-group: former
+status: former
 years: 2025
 ---
