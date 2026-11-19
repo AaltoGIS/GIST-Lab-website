@@ -5,6 +5,7 @@ role: Assistant Professor
 status: current
 order: 1
 photo: "./images/henrikki-tenkanen.jpg"
+photoPosition: 50% 0%
 emailText: firstname.lastname@aalto.fi
 education:
   - year: 2017

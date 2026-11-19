@@ -5,6 +5,7 @@ role: Doctoral researcher
 status: current
 order: 7
 photo: "./images/cesar-marin-flores.jpg"
+photoPosition: 50% 58%
 email: "cesar.marinflores@aalto.fi"
 education:
   - year: 2022

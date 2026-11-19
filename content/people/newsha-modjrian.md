@@ -5,6 +5,7 @@ role: Doctoral researcher
 status: current
 order: 8
 photo: "./images/newsha-modjrian.jpg"
+photoPosition: 50% 100%
 email: "newsha.modjrian@aalto.fi"
 education:
   - year: 2022
