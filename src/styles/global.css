@@ -249,6 +249,7 @@ img {
 
 .site-nav {
   margin-left: auto;
+  font-family: var(--font-heading);
 }
 
 .site-nav__list,
