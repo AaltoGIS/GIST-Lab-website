@@ -72,6 +72,7 @@ const people = defineCollection({
         photo: image().optional(),
         photoAlt: altText.optional(),
         photoPosition: z.string().default("50% 10%"),
+        photoZoom: z.number().min(1).max(3).default(1),
         email: z
           .email()
           .refine((value) => !value.startsWith("firstname.lastname@"), "use `emailText` for an address pattern such as firstname.lastname@aalto.fi")
