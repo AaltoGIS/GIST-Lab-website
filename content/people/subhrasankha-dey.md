@@ -5,6 +5,7 @@ role: Postdoctoral researcher
 status: current
 order: 5
 photo: "./images/subhrasankha-dey.jpg"
+photoPosition: 50% 42%
 email: "subhrasankha.dey@aalto.fi"
 education:
   - year: 2023
