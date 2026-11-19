@@ -247,13 +247,15 @@ img {
   color: inherit;
 }
 
-/* Logo versions: the on-dark ones have white lettering. */
+/* Logo versions: the on-dark ones have white lettering, also used over the banner. */
 .brand__logo--on-dark,
-:root[data-theme="dark"] .brand__logo--on-light {
+:root[data-theme="dark"] .brand__logo--on-light,
+.site-header--overlay:not(.is-scrolled) .brand__logo--on-light {
   display: none;
 }
 
-:root[data-theme="dark"] .brand__logo--on-dark {
+:root[data-theme="dark"] .brand__logo--on-dark,
+.site-header--overlay:not(.is-scrolled) .brand__logo--on-dark {
   display: block;
 }
 
