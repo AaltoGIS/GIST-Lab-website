@@ -264,16 +264,6 @@ img {
   display: block;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .brand__logo--on-light {
-    display: none;
-  }
-
-  :root:not([data-theme]) .brand__logo--on-dark {
-    display: block;
-  }
-}
-
 .site-nav {
   margin-left: auto;
   font-family: var(--font-heading);

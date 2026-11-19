@@ -230,6 +230,9 @@ appear in the menu.
 - Headings use Montserrat (the lettering of the lab logo), body text Open
   Sans, as on the old site. Both are self-hosted; the site makes no requests
   to font services.
+- The site opens in the dark theme (`data-theme="dark"` on `<html>`); the
+  moon/sun button in the header switches to light, and the browser remembers
+  that choice.
 - Check changed pages in both themes and at phone width (about 375 px).
 
 ## Asking Claude on GitHub
