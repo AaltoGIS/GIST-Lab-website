@@ -2,6 +2,7 @@
 title: "When Proximity Falls Short: Inequalities in Commuting and Accessibility by Public Transport in Santiago, Chile"
 authors: "Marin-Flores, C., L. Ferres & H. Tenkanen"
 year: 2026
+date: 2026-03-26
 venue: "Geographical Analysis 58(2), e70039"
 doi: 10.1111/gean.70039
 people:

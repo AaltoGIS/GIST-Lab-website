@@ -2,6 +2,7 @@
 title: "Measuring just accessibility within planetary boundaries"
 authors: "Willberg, E., H. Tenkanen, H. Miller, R.H. Pereira & T. Toivonen"
 year: 2024
+date: 2023-07-31
 venue: "Transport Reviews 44(1), 140–166"
 doi: 10.1080/01441647.2023.2240958
 openAccess: true

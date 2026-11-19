@@ -2,6 +2,7 @@
 title: "Field data-based models for predicting seismic settlement of earth embankments"
 authors: "Nan, X., H. Javdanian & S. H. Hosseini"
 year: 2025
+date: 2025-12-18
 venue: "The European Physical Journal Plus 140"
 doi: 10.1140/epjp/s13360-025-07164-5
 people:

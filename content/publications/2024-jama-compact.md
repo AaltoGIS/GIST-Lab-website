@@ -2,6 +2,7 @@
 title: "Compact city and urban planning: Correlation between density and local amenities"
 authors: "Jama, T., H. Tenkanen, H. Lönnqvist & A. Joutsiniemi"
 year: 2024
+date: 2024-05-06
 venue: "Environment and Planning B: Urban Analytics and City Science"
 doi: 10.1177/23998083241250264
 openAccess: true

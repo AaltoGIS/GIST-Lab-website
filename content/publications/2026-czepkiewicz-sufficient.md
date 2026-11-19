@@ -2,6 +2,7 @@
 title: "Sufficient Mobility and Access Within Limits: Research Agenda for Bringing Together Corridor Frameworks and Transportation Research"
 authors: "Czepkiewicz, M., G. Mattioli, F. Schmidt, E. Willberg, L. Kilian, H. Tenkanen, D. Timmer, Á. Gosztonyi, J. Raudsepp, S. Ala-Mantila, L. Jacobson, M. Guillen-Royo, D. Krysiński, K. Dillman, J. Heinonen & P. Næss"
 year: 2026
+date: 2026-05-01
 venue: "Transportation Research Interdisciplinary Perspectives 37, 102029"
 doi: 10.1016/j.trip.2026.102029
 people:
