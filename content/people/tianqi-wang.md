@@ -1,6 +1,6 @@
 ---
 name: Tianqi Wang
 prefix: MSc
-group: former
+status: former
 years: 2022–2023
 ---
