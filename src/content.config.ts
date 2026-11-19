@@ -14,7 +14,6 @@ const home = defineCollection({
       description: z.string().min(1),
       hero: z.object({
         title: z.string().min(1),
-        subtitle: z.string().min(1),
         text: z.string().min(1),
         image: image(),
         imageAlt: z.string().min(1),
