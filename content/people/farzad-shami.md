@@ -1,7 +1,7 @@
 ---
 name: Farzad Shami
 role: Doctoral researcher
-group: doctoral
+status: current
 order: 12
 photo: "./images/farzad-shami.jpg"
 ---
