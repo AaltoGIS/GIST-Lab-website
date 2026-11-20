@@ -4,7 +4,7 @@ description: Current and former members of GIST Lab at the Department of Built E
 labels:
   current: Current lab members
   affiliate: GIST Lab affiliates
-  former: Former lab members
+  former: GIST Lab Alumni
   education: Education
   projects: Projects
   publications: Publications
