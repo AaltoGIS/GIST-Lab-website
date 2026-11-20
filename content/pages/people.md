@@ -3,6 +3,7 @@ title: People
 description: Current and former members of GIST Lab at the Department of Built Environment, Aalto University.
 labels:
   current: Current lab members
+  affiliate: GIST Lab affiliates
   former: Former lab members
   education: Education
   projects: Projects

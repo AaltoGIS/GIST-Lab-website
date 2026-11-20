@@ -63,17 +63,18 @@ after every change.
 ## People
 
 Each person is one file, `content/people/<first-last>.md`; the file name is
-the profile address (`/people/<first-last>/`). Current members get a profile
-page and a card on the People page, all in one grid ordered by `order`;
-former members appear in the one-line list. The body of the file is the
-biography (Markdown).
+the profile address (`/people/<first-last>/`). Current members and
+affiliates (e.g. part-time researchers employed elsewhere) get a profile page
+and a card on the People page, in two grids ("Current lab members", "GIST Lab
+affiliates"), each ordered by `order`; former members appear in the one-line
+list. The body of the file is the biography (Markdown).
 
 ```yaml
 ---
 name: Jane Doe
 prefix: Dr.                 # optional, shown before the name
 role: Postdoctoral researcher
-status: current             # current | former
+status: current             # current | affiliate | former
 order: 6                    # optional, position on the People page
 affiliation: Department of X, Aalto University   # optional; default from site.yml
 photo: ./images/jane-doe.jpg                     # optional
@@ -131,7 +132,7 @@ An event is `content/events/<short-title>.md`:
 ---
 title: Workshop on accessibility tools
 date: 2026-05-07          # optional; events without a date are listed as past
-endDate: 2026-05-09       # optional
+endDate: 2026-05-09       # optional; give both as months (2025-02, 2025-05) when the days are not known
 location: Otaniemi, Espoo # optional
 link: https://example.org/workshop   # optional, shown as a button
 image: ./images/2026-05-07-logo.png  # optional
@@ -139,10 +140,11 @@ imageAlt: Workshop logo   # required with `image`
 ---
 ```
 
-Dates are written as `YYYY-MM-DD`; `npm test` checks that each is a real
-calendar day. Events whose (end) date is today or later are listed as upcoming. The
-decision is made when the site is built; the deploy workflow also rebuilds
-the site every Monday.
+Dates are written as `YYYY-MM-DD` (events may give months, `YYYY-MM`); `npm
+test` checks that each is a real calendar day or month. Events whose (end)
+date is today or later are listed as upcoming; a month-dated event counts
+until the end of its last month. The decision is made when the site is
+built; the deploy workflow also rebuilds the site every Monday.
 
 ## Research projects
 

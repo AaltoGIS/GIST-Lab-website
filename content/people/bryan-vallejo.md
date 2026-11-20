@@ -1,8 +1,8 @@
 ---
 name: Bryan Vallejo
 prefix: MSc
-role: Doctoral researcher
-status: current
+role: Part-time PhD researcher
+status: affiliate
 order: 11
 photo: "./images/bryan-vallejo.jpg"
 photoPosition: 50% 43%

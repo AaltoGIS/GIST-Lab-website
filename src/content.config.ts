@@ -20,6 +20,15 @@ const calendarDate = z
     return date;
   });
 
+// A month written as 2025-02, for events whose days are not known.
+const calendarMonth = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, "use the form YYYY-MM");
+const monthStart = (month: string) => new Date(`${month}-01T00:00:00Z`);
+const monthEnd = (month: string) => {
+  const end = monthStart(month);
+  end.setUTCMonth(end.getUTCMonth() + 1, 0);
+  return end;
+};
+
 // Alt text: surrounding spaces are removed, so a blank value counts as missing.
 const altText = z.string().trim().min(1);
 
@@ -90,7 +99,7 @@ const people = defineCollection({
         name: z.string().min(1),
         prefix: z.string().min(1).optional(),
         role: z.string().min(1).optional(),
-        status: z.enum(["current", "former"]),
+        status: z.enum(["current", "affiliate", "former"]),
         order: z.number().int().default(100),
         affiliation: z.string().min(1).optional(),
         photo: image().optional(),
@@ -156,14 +165,28 @@ const events = defineCollection({
     z
       .object({
         title: z.string().min(1),
-        date: calendarDate.optional(),
-        endDate: calendarDate.optional(),
+        date: z.union([calendarDate, calendarMonth]).optional(),
+        endDate: z.union([calendarDate, calendarMonth]).optional(),
         location: z.string().min(1).optional(),
         link: z.url({ protocol: /^https?$/ }).optional(),
         image: image().optional(),
         imageAlt: altText.optional()
       })
       .refine(hasAltText, altTextIssue)
+      .refine((event) => !event.date || !event.endDate || typeof event.date === typeof event.endDate, {
+        message: "give `date` and `endDate` both as days (YYYY-MM-DD) or both as months (YYYY-MM)",
+        path: ["endDate"]
+      })
+      // Month dates span whole months: `date` is the first day, `endDate` the last day of its month.
+      .transform(({ date, endDate, ...event }) => {
+        const byMonth = typeof date === "string";
+        return {
+          ...event,
+          byMonth,
+          date: typeof date === "string" ? monthStart(date) : date,
+          endDate: typeof endDate === "string" ? monthEnd(endDate) : byMonth ? monthEnd(date as string) : endDate
+        };
+      })
       .refine((event) => !event.endDate || (event.date && event.endDate >= event.date), {
         message: "`endDate` needs a `date` on or before it",
         path: ["endDate"]

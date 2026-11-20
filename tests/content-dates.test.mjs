@@ -11,7 +11,7 @@ function markdownFiles(dir) {
   );
 }
 
-test("dates in content front matter are real calendar days written as YYYY-MM-DD", () => {
+test("dates in content front matter are real calendar days (YYYY-MM-DD) or months (YYYY-MM)", () => {
   const problems = [];
   for (const file of markdownFiles("content")) {
     const text = readFileSync(file, "utf8").replace(/\r\n?/g, "\n");
@@ -20,7 +20,8 @@ test("dates in content front matter are real calendar days written as YYYY-MM-DD
       const value = raw.replace(/\s+#.*$/, "").trim().replace(/^(["'])(.*)\1$/, "$2");
       const day = new Date(`${value}T00:00:00Z`);
       const isDay = /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(day.getTime()) && day.toISOString().slice(0, 10) === value;
-      if (!isDay) problems.push(`${file}: ${key}:${raw} (use a real day as YYYY-MM-DD)`);
+      const isMonth = /^\d{4}-(0[1-9]|1[0-2])$/.test(value);
+      if (!isDay && !isMonth) problems.push(`${file}: ${key}:${raw} (use a real day as YYYY-MM-DD, or a month as YYYY-MM)`);
     }
   }
   assert.deepEqual(problems, []);
