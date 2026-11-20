@@ -67,7 +67,7 @@ the profile address (`/people/<first-last>/`). Current members and
 affiliates (e.g. part-time researchers employed elsewhere) get a profile page
 and a card on the People page, in two grids ("Current lab members", "GIST Lab
 affiliates"), each ordered by `order`; former members appear in the one-line
-list. The body of the file is the biography (Markdown).
+list ("GIST Lab Alumni"). The body of the file is the biography (Markdown).
 
 ```yaml
 ---
